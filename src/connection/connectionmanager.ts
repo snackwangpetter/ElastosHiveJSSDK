@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2019 Elastos Foundation
+ * Copyright (c) 2021 Elastos Foundation
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -19,45 +19,27 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
+export class ConnectionManager {
+	private static DEFAULT_TIMEOUT = 30;
 
-package org.elastos.hive.connection;
-
-import okhttp3.OkHttpClient;
-import org.elastos.hive.ServiceEndpoint;
-import org.elastos.hive.network.*;
-import org.elastos.hive.network.response.HiveResponseBody;
-import org.elastos.hive.utils.LogUtil;
-import retrofit2.Retrofit;
-import retrofit2.converter.gson.GsonConverterFactory;
-
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.net.HttpURLConnection;
-import java.net.URL;
-import java.util.concurrent.TimeUnit;
-
-public class ConnectionManager {
-	private static final int DEFAULT_TIMEOUT = 30;
-
-	private ServiceEndpoint serviceEndpoint;
-	private RequestInterceptor authRequestInterceptor;
+	private serviceEndpoint: ServiceEndpoint;
+	/* TODO JAVA private RequestInterceptor authRequestInterceptor;
 	private RequestInterceptor plainRequestInterceptor;
+ */
+	private subscriptionApi: SubscriptionApi;
+	private paymentApi: PaymentApi;
+	private databaseApi: DatabaseApi;
 
-	private SubscriptionApi subscriptionApi;
-	private PaymentApi paymentApi;
-	private DatabaseApi databaseApi;
+	private authApi: AuthApi;
+	private filesApi: FilesApi;
+	private scriptingApi: ScriptingApi;
+	private backupApi: BackupApi;
+	private nodeManageApi: NodeManageApi;
 
-	private AuthApi authApi;
-	private FilesApi filesApi;
-	private ScriptingApi scriptingApi;
-	private BackupApi backupApi;
-	private NodeManageApi nodeManageApi;
-
-	public ConnectionManager(ServiceEndpoint serviceEndpoint) {
+	public constructor(serviceEndpoint: ServiceEndpoint) {
 		this.serviceEndpoint = serviceEndpoint;
-		this.plainRequestInterceptor = new RequestInterceptor(this);
-		this.authRequestInterceptor  = new RequestInterceptor(this, false);
+		/* TODO JAVA this.plainRequestInterceptor = new RequestInterceptor(this);
+		this.authRequestInterceptor  = new RequestInterceptor(this, false); */
 	}
 
 	public ServiceEndpoint getServiceEndpoint() {

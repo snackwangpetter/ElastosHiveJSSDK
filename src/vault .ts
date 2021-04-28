@@ -1,17 +1,7 @@
-package org.elastos.hive;
-
-import org.elastos.hive.service.*;
-import org.elastos.hive.vault.HttpExceptionHandler;
-import org.elastos.hive.vault.NodeManageServiceRender;
-import org.elastos.hive.vault.ServiceBuilder;
-
-import java.util.concurrent.CompletableFuture;
-import java.util.concurrent.CompletionException;
-
 /**
  * This class explicitly represents the vault service subscribed by "userDid".
  */
-public class Vault extends ServiceEndpoint implements HttpExceptionHandler {
+export class Vault extends ServiceEndpoint implements HttpExceptionHandler {
 	private FilesService 	filesService;
 	private DatabaseService databaseService;
 	private ScriptingService scriptingService;
