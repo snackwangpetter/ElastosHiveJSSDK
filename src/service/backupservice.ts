@@ -1,3 +1,5 @@
+import { BackupContext } from "./backupcontext";
+
 /**
  * Backup service is for doing backup vault data from vault node server to backup server.
  * Backup server maybe another node server or third-party centralized server like Google Drive.
@@ -50,11 +52,11 @@ export interface BackupService {
 	 *
 	 * @return Void
 	 */
-	checkResult(): Promise<BackupResult>;
+	checkResult(): Promise<BackupService.BackupResult>;
 }
 
 export namespace BackupService {
-	enum BackupResult {
+	export enum BackupResult {
 		STATE_STOP,
 		STATE_BACKUP,
 		STATE_RESTORE,

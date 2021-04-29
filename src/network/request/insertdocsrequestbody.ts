@@ -1,17 +1,13 @@
-package org.elastos.hive.network.request;
+import { InsertManyOptions } from "../../database/insertmanyoptions";
+import { KeyValueDict } from "../model/keyvaluedict";
+import { CreateCollectionRequestBody } from "./createcollectionrequestbody";
 
-import com.google.gson.annotations.SerializedName;
-import org.elastos.hive.database.InsertManyOptions;
-import org.elastos.hive.network.model.KeyValueDict;
-
-import java.util.List;
-
-public class InsertDocsRequestBody extends CreateCollectionRequestBody {
+export class InsertDocsRequestBody extends CreateCollectionRequestBody {
     // TODO JAVA @SerializedName("document")
-    private final List<KeyValueDict> documents;
-    private final InsertManyOptions options;
+    private documents: KeyValueDict[];
+    private options: InsertManyOptions;
 
-    public InsertDocsRequestBody(String name, List<KeyValueDict> documents, InsertManyOptions options) {
+    public constructor(name: string, documents: KeyValueDict[], options: InsertManyOptions) {
         super(name);
         this.documents = documents;
         this.options = options;

@@ -1,5 +1,7 @@
+import { BackupSaveRequestBody } from "./backupsaverequestbody";
+
 export class BackupRestoreRequestBody extends BackupSaveRequestBody {
-    public BackupRestoreRequestBody(credential: string) {
+    public constructor(credential: string) {
         super(credential);
     }
 }

@@ -1,3 +1,4 @@
+import { FindOptions } from "../../database/findoptions";
 import { KeyValueDict } from "../model/keyvaluedict";
 import { FindDocRequestBody } from "./finddocrequestbody";
 

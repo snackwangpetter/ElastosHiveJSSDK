@@ -1,4 +1,5 @@
 import { AppContext } from "./appcontext";
+import { Version } from "./service/version";
 import { ServiceEndpoint } from "./serviceendpoint";
 
 /**

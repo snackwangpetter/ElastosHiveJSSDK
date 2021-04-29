@@ -4,19 +4,19 @@ import com.google.gson.annotations.SerializedName;
 
 public class VaultInfoResponseBody extends HiveResponseBody {
     private String did;
-    @SerializedName("max_storage")
+    // TODO JAVA @SerializedName("max_storage")
     private long maxStorage;
-    @SerializedName("file_use_storage")
+    // TODO JAVA @SerializedName("file_use_storage")
     private long fileUseStorage;
-    @SerializedName("db_use_storage")
+    // TODO JAVA @SerializedName("db_use_storage")
     private long dbUseStorage;
-    @SerializedName("modify_time")
+    // TODO JAVA @SerializedName("modify_time")
     private long modifyTime;
-    @SerializedName("start_time")
+    // TODO JAVA @SerializedName("start_time")
     private long startTime;
-    @SerializedName("end_time")
+    // TODO JAVA @SerializedName("end_time")
     private long endTime;
-    @SerializedName("pricing_using")
+    // TODO JAVA @SerializedName("pricing_using")
     private String pricingUsing;
     private String state;
 

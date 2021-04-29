@@ -37,9 +37,9 @@ export class ConnectionManager {
 
 	private authApi: AuthApi;
 	/* private filesApi: FilesApi;
-	private scriptingApi: ScriptingApi;
+	private scriptingApi: ScriptingApi;*/
 	private backupApi: BackupApi;
-	private nodeManageApi: NodeManageApi; */
+	/* private nodeManageApi: NodeManageApi;  */
 
 	public constructor(serviceEndpoint: ServiceEndpoint) {
 		this.serviceEndpoint = serviceEndpoint;

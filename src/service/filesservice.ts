@@ -1,3 +1,5 @@
+import { FileInfo } from "../network/model/fileinfo";
+
 /**
  * Vault provides a storage for files saving.
  * Files can be uploading, downloading and getting the status and information.

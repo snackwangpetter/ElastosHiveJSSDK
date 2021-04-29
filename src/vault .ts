@@ -1,15 +1,24 @@
+import { AppContext } from "./appcontext";
+import { ServiceBuilder } from "./backup/servicebuilder";
+import { BackupService } from "./service/backupservice";
+import { DatabaseService } from "./service/databaseservice";
+import { FilesService } from "./service/filesservice";
+import { PubSubService } from "./service/pubsubservice";
+import { ScriptingService } from "./service/scriptingservice";
+import { ServiceEndpoint } from "./serviceendpoint";
+
 /**
  * This class explicitly represents the vault service subscribed by "userDid".
  */
 export class Vault extends ServiceEndpoint implements HttpExceptionHandler {
-	private FilesService 	filesService;
-	private DatabaseService databaseService;
-	private ScriptingService scriptingService;
-	private PubSubService pubsubService;
-	private BackupService 	backupService;
-	private NodeManageServiceRender nodeManageService;
+	private filesService: FilesService;
+	private databaseService: DatabaseService;
+	private scriptingService: ScriptingService;
+	private pubsubService: PubSubService;
+	private backupService: BackupService;
+	private nodeManageService: NodeManageServiceRender;
 
-	public Vault(AppContext context, String providerAddress) {
+	public constructor(context: AppContext, providerAddress: string) {
 		super(context, providerAddress);
 
 		this.filesService 	= new ServiceBuilder(this).createFilesService();
@@ -20,42 +29,42 @@ export class Vault extends ServiceEndpoint implements HttpExceptionHandler {
 		this.nodeManageService = new NodeManageServiceRender(this);
 	}
 
-	public FilesService getFilesService() {
+	public getFilesService(): FilesService {
 		return this.filesService;
 	}
 
-	public DatabaseService getDatabaseService() {
+	public getDatabaseService(): DatabaseService {
 		return this.databaseService;
 	}
 
-	public ScriptingService getScriptingService() {
+	public getScriptingService(): ScriptingService {
 		return this.scriptingService;
 	}
 
-	public PubSubService getPubSubService() {
+	public getPubSubService(): PubSubService {
 		return this.pubsubService;
 	}
 
-	public BackupService getBackupService() {
+	public getBackupService(): BackupService {
 		return this.backupService;
 	}
 
-	public CompletableFuture<String> getVersion() {
-		return CompletableFuture.supplyAsync(() -> {
+	public getVersion(): Promise<string> {
+		return new Promise((resolve, reject)=>{
 			try {
-				return nodeManageService.getVersion();
-			} catch (Exception e) {
-				throw new CompletionException(convertException(e));
+				resolve(this.nodeManageService.getVersion());
+			} catch (e) {
+				reject(new CompletionException(convertException(e)));
 			}
 		});
 	}
 
-	public CompletableFuture<String> getCommitHash() {
-		return CompletableFuture.supplyAsync(() -> {
+	public getCommitHash(): Promise<string> {
+		return new Promise((resolve, reject)=>{
 			try {
-				return nodeManageService.getCommitHash();
-			} catch (Exception e) {
-				throw new CompletionException(convertException(e));
+				resolve(this.nodeManageService.getCommitHash());
+			} catch (e) {
+				reject(new CompletionException(convertException(e)));
 			}
 		});
 	}

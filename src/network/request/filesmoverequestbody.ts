@@ -5,7 +5,7 @@ export class FilesMoveRequestBody {
     // TODO JAVA @SerializedName("dst_path")
     private dstPath: string;
 
-    public FilesMoveRequestBody(srcPath: string, dstPath: string) {
+    public constructor(srcPath: string, dstPath: string) {
         this.srcPath = srcPath;
         this.dstPath = dstPath;
     }

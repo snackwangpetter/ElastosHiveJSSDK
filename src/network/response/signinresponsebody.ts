@@ -5,7 +5,7 @@ export class SignInResponseBody extends HiveResponseBody {
     private challenge: string;
 
     public getChallenge(): string {
-        return this.challenge;
+        return this.chwallenge;
     }
 
     public checkValid(validAudience: string): Claims {

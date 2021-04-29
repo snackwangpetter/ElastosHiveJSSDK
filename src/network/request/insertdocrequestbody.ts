@@ -1,3 +1,4 @@
+import { InsertOneOptions } from "../../database/insertoneoptions";
 import { KeyValueDict } from "../model/keyvaluedict";
 import { CreateCollectionRequestBody } from "./createcollectionrequestbody";
 
