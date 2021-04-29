@@ -5,15 +5,15 @@ import org.elastos.hive.network.model.Condition;
 import org.elastos.hive.network.model.Executable;
 
 public class RegisterScriptRequestBody {
-    @SerializedName("name")
+    // TODO JAVA @SerializedName("name")
     private String name;
-    @SerializedName("executable")
+    // TODO JAVA @SerializedName("executable")
     private Executable executable;
-    @SerializedName("allowAnonymousUser")
+    // TODO JAVA @SerializedName("allowAnonymousUser")
     private Boolean allowAnonymousUser;
-    @SerializedName("allowAnonymousApp")
+    // TODO JAVA @SerializedName("allowAnonymousApp")
     private Boolean allowAnonymousApp;
-    @SerializedName("condition")
+    // TODO JAVA @SerializedName("condition")
     private Condition condition;
 
     public RegisterScriptRequestBody setName(String name) {

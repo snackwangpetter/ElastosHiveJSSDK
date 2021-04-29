@@ -10,7 +10,8 @@
   },
   "dependencies": {
     "jsrsasign": "^10.1.4",
-    "jsrsasign-util": "^1.0.2"
+    "jsrsasign-util": "^1.0.2",
+    "pretend": "^3.1.0"
   },
   "repository": {
     "type": "git",

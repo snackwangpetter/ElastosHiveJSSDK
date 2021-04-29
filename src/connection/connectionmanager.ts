@@ -1,3 +1,8 @@
+import { IPretendRequestInterceptor, Pretend } from "pretend";
+import { AuthApi } from "../network/authapi";
+import { Class } from "../class";
+import { ServiceEndpoint } from "../serviceendpoint";
+
 /*
  * Copyright (c) 2021 Elastos Foundation
  *
@@ -23,18 +28,18 @@ export class ConnectionManager {
 	private static DEFAULT_TIMEOUT = 30;
 
 	private serviceEndpoint: ServiceEndpoint;
-	/* TODO JAVA private RequestInterceptor authRequestInterceptor;
-	private RequestInterceptor plainRequestInterceptor;
+	private authRequestInterceptor: IPretendRequestInterceptor;
+	/* TODO JAVA private RequestInterceptor plainRequestInterceptor;
  */
-	private subscriptionApi: SubscriptionApi;
+	/* private subscriptionApi: SubscriptionApi;
 	private paymentApi: PaymentApi;
-	private databaseApi: DatabaseApi;
+	private databaseApi: DatabaseApi; */
 
 	private authApi: AuthApi;
-	private filesApi: FilesApi;
+	/* private filesApi: FilesApi;
 	private scriptingApi: ScriptingApi;
 	private backupApi: BackupApi;
-	private nodeManageApi: NodeManageApi;
+	private nodeManageApi: NodeManageApi; */
 
 	public constructor(serviceEndpoint: ServiceEndpoint) {
 		this.serviceEndpoint = serviceEndpoint;
@@ -42,18 +47,18 @@ export class ConnectionManager {
 		this.authRequestInterceptor  = new RequestInterceptor(this, false); */
 	}
 
-	public ServiceEndpoint getServiceEndpoint() {
+	public getServiceEndpoint(): ServiceEndpoint {
 		return this.serviceEndpoint;
 	}
 
-	public AuthApi getAuthApi() {
-		if (authApi == null)
-			authApi = createService(AuthApi.class, serviceEndpoint.getProviderAddress(), this.authRequestInterceptor);
+	public getAuthApi(): AuthApi {
+		if (this.authApi == null)
+			this.authApi = ConnectionManager.createService(AuthApi, this.serviceEndpoint.getProviderAddress(), this.authRequestInterceptor);
 
-		return authApi;
+		return this.authApi;
 	}
 
-	public NodeManageApi getNodeManagerApi() {
+	/* public NodeManageApi getNodeManagerApi() {
 		if (nodeManageApi == null)
 			nodeManageApi = createService(NodeManageApi.class, serviceEndpoint.getProviderAddress(), this.authRequestInterceptor);
 
@@ -100,9 +105,9 @@ export class ConnectionManager {
 			backupApi = createService(BackupApi.class, serviceEndpoint.getProviderAddress(), this.plainRequestInterceptor);
 		}
 		return backupApi;
-	}
+	} */
 
-	public HttpURLConnection openConnection(String path) throws IOException {
+	/* public openConnection(String path): HttpURLConnection {
 		String url = serviceEndpoint.getProviderAddress() + BaseApi.API_VERSION + path;
 		LogUtil.d("open connection with URL: " + url);
 		HttpURLConnection httpURLConnection = (HttpURLConnection) new URL(url).openConnection();
@@ -123,7 +128,7 @@ export class ConnectionManager {
 		return httpURLConnection;
 	}
 
-	public static void readConnection(HttpURLConnection httpURLConnection) throws IOException {
+	public static readConnection(HttpURLConnection httpURLConnection) {
 		int code = httpURLConnection.getResponseCode();
 		if (code == 200) {
 			BufferedReader reader = new BufferedReader(new InputStreamReader(httpURLConnection.getInputStream()));
@@ -136,25 +141,20 @@ export class ConnectionManager {
 		} else {
 			throw HiveResponseBody.getHttpExceptionByCode(code, HiveResponseBody.getHttpErrorMessages().get(code));
 		}
-	}
+	} */
 
-	private static <S> S createService(Class<S> serviceClass, String baseUrl, RequestInterceptor requestInterceptor) {
-		OkHttpClient.Builder clientBuilder;
-		Retrofit.Builder retrofitBuilder;
+	private static createService<S>(serviceClass: Class<S>, baseUrl: string, requestInterceptor: IPretendRequestInterceptor): S {
+		return Pretend.builder()
+			// TODO JAVA .interceptor(new LoggerInterceptor())
+			.requestInterceptor(requestInterceptor)
+			// TODO JAVA .connectTimeout(DEFAULT_TIMEOUT, TimeUnit.SECONDS)
+			// TODO JAVA .readTimeout(DEFAULT_TIMEOUT, TimeUnit.SECONDS);
+			.decode(Pretend.JsonDecoder) // TODO: SAME AS .addConverterFactory(GsonConverterFactory.create());  ?
+			.target<S>(serviceClass, baseUrl);
 
-		clientBuilder = new OkHttpClient.Builder()
-				.connectTimeout(DEFAULT_TIMEOUT, TimeUnit.SECONDS)
-				.readTimeout(DEFAULT_TIMEOUT, TimeUnit.SECONDS);
-
-		clientBuilder.interceptors().clear();
-		clientBuilder.interceptors().add(requestInterceptor);
-		clientBuilder.interceptors().add(new LoggerInterceptor());
-
-		retrofitBuilder = new Retrofit.Builder()
+		/* TODO JAVA retrofitBuilder = new Retrofit.Builder()
 				.baseUrl(baseUrl)
 				.addConverterFactory(StringConverterFactory.create())
-				.addConverterFactory(GsonConverterFactory.create());
-
-		return retrofitBuilder.client(clientBuilder.build()).build().create(serviceClass);
+				*/
 	}
 }

@@ -6,7 +6,7 @@ export class ServiceEndpoint {
 	private providerAddress: string;
 	private connectionManager: ConnectionManager;
 
-	protected ServiceEndpoint(context: AppContext, providerAddress: string) {
+	protected constructor(context: AppContext, providerAddress: string) {
 		this.context = context;
 		this.providerAddress = providerAddress;
 		this.connectionManager = new ConnectionManager(this);

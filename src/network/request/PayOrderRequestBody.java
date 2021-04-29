@@ -5,9 +5,9 @@ import com.google.gson.annotations.SerializedName;
 import java.util.List;
 
 public class PayOrderRequestBody {
-    @SerializedName("order_id")
+    // TODO JAVA @SerializedName("order_id")
     private String orderId;
-    @SerializedName("pay_txids")
+    // TODO JAVA @SerializedName("pay_txids")
     private List<String> payTxids;
 
     public PayOrderRequestBody setOrderId(String orderId) {
