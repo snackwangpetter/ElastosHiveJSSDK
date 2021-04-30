@@ -1,3 +1,7 @@
+import { Order } from "../payment/order";
+import { PricingPlan } from "../payment/pricingplan";
+import { Receipt } from "../payment/receipt";
+
 export interface PaymentService {
 	/**
 	 * Get pricing plan list from vault and backup service,

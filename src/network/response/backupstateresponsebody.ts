@@ -1,3 +1,5 @@
+import { HiveException } from "../../exception/hiveexception";
+import { BackupService } from "../../service/backupservice";
 import { HiveResponseBody } from "./hiveresponsebody";
 
 export class BackupStateResponseBody extends HiveResponseBody {
@@ -7,7 +9,7 @@ export class BackupStateResponseBody extends HiveResponseBody {
     private result: string;
 
     public getStatusResult(): BackupService.BackupResult {
-        switch (hiveBackupState) {
+        switch (this.hiveBackupState) {
             case "stop":
                 return BackupService.BackupResult.STATE_STOP;
             case "backup":
@@ -15,7 +17,7 @@ export class BackupStateResponseBody extends HiveResponseBody {
             case "restore":
                 return BackupService.BackupResult.STATE_RESTORE;
             default:
-                throw new HiveException("Unknown state :" + result);
+                throw new HiveException("Unknown state :" + this.result);
         }
     }
 }

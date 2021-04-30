@@ -1,3 +1,6 @@
+import { Condition } from "../network/model/condition";
+import { Executable } from "../network/model/executable";
+
 export interface ScriptingService {
     /**
      * Lets the vault owner register a script on his vault for a given app. The script is built on the client side, then

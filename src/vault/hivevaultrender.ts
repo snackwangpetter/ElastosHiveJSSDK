@@ -1,12 +1,14 @@
 import { AppContext } from "../appcontext";
 import { ServiceEndpoint } from "../serviceendpoint";
 import { ConnectionManager } from "../connection/connectionmanager";
+import { HttpExceptionHandler } from "./httpexceptionhandler";
 
-export abstract class HiveVaultRender {
+export abstract class HiveVaultRender extends HttpExceptionHandler {
     private context: AppContext;
     private serviceEndpoint: ServiceEndpoint;
 
     protected constructor(serviceEndpoint: ServiceEndpoint) {
+        super();
         this.serviceEndpoint = serviceEndpoint;
         this.context = serviceEndpoint.getAppContext();
     }

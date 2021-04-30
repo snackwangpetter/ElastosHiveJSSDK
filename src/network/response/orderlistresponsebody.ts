@@ -1,3 +1,4 @@
+import { Order } from "../../payment/order";
 import { HiveResponseBody } from "./hiveresponsebody";
 
 export class OrderListResponseBody extends HiveResponseBody {

@@ -1,3 +1,9 @@
+import { AppContext } from "./appcontext";
+import { CompletionException } from "./exception/illegalargumentexception";
+import { PaymentService } from "./service/paymentservice";
+import { SubscriptionService } from "./service/subscriptionservice";
+import { ServiceEndpoint } from "./serviceendpoint";
+
 export class VaultSubscription extends ServiceEndpoint implements SubscriptionService<VaultSubscription.VaultInfo>, PaymentService, HttpExceptionHandler {
 	private context: AppContext;
 	private subscriptionService: SubscriptionServiceRender;
@@ -10,14 +16,14 @@ export class VaultSubscription extends ServiceEndpoint implements SubscriptionSe
 		this.subscriptionService = new SubscriptionServiceRender(this);
 	}
 
-	public subscribe(pricingPlan: string): Promise<VaultInfo> {
-		return CompletableFuture.supplyAsync(() -> {
+	public subscribe(pricingPlan: string): Promise<VaultSubscription.VaultInfo> {
+		return new Promise((resolve, reject)=>{
 			try {
 				this.subscriptionService.subscribe();
 				//TODO:
-				return new VaultInfo(null, getAppContext().getUserDid(), null);
-			} catch (Exception e) {
-				throw new CompletionException(convertException(e));
+				resolve(new VaultSubscription.VaultInfo(null, this.getAppContext().getUserDid(), null));
+			} catch (e) {
+				reject(new CompletionException(this.convertException(e)));
 			}
 		});
 	}
@@ -129,130 +135,130 @@ export class VaultSubscription extends ServiceEndpoint implements SubscriptionSe
 
 export namespace VaultSubscription {
 	export class VaultInfo {
-		private String userDid;
-		private String appInstanceDid;
-		private String appId;
-		private String provider;
+		private userDid: string;
+		private appInstanceDid: string;
+		private appId: string;
+		private provider: string;
 
-		private String serviceDid;
-		private String pricingUsing;
-		private String createTime;
-		private String modifyTime;
-		private long maxSpace;
-		private long dbSpaceUsed;
-		private long fileSpaceUsed;
-		private boolean existing;
+		private serviceDid: string;
+		private pricingUsing: string;
+		private createTime: string;
+		private modifyTime: string;
+		private maxSpace: number;
+		private dbSpaceUsed: number;
+		private fileSpaceUsed: number;
+		private existing: boolean;
 
-		public VaultInfo(String appInstanceDid, String userDid, String serviceDid) {
+		public constructor(appInstanceDid: string, userDid: string, serviceDid: string) {
 			this.appInstanceDid = appInstanceDid;
 			this.userDid = userDid;
 			this.serviceDid = serviceDid;
 		}
 
-		public String getUserDid() {
-			return userDid;
+		public getUserDid(): string {
+			return this.userDid;
 		}
 
-		public VaultInfo setUserDid(String userDid) {
+		public setUserDid(userDid: string): VaultInfo {
 			this.userDid = userDid;
 			return this;
 		}
 
-		public String getAppInstanceDid() {
-			return appInstanceDid;
+		public getAppInstanceDid(): string {
+			return this.appInstanceDid;
 		}
 
-		public VaultInfo setAppInstanceDid(String appInstanceDid) {
+		public setAppInstanceDid(appInstanceDid: string): VaultInfo {
 			this.appInstanceDid = appInstanceDid;
 			return this;
 		}
 
-		public String getAppId() {
-			return appId;
+		public getAppId(): string {
+			return this.appId;
 		}
 
-		public VaultInfo setAppId(String appId) {
+		public setAppId(appId: string): VaultInfo {
 			this.appId = appId;
 			return this;
 		}
 
-		public String getProvider() {
-			return provider;
+		public getProvider(): string {
+			return this.provider;
 		}
 
-		public VaultInfo setProvider(String provider) {
+		public setProvider(provider: string): VaultInfo {
 			this.provider = provider;
 			return this;
 		}
 
-		public String getServiceDid() {
-			return serviceDid;
+		public getServiceDid(): string {
+			return this.serviceDid;
 		}
 
-		public VaultInfo setServiceDid(String serviceDid) {
+		public setServiceDid(serviceDid: string): VaultInfo {
 			this.serviceDid = serviceDid;
 			return this;
 		}
 
-		public String getPricingUsing() {
-			return pricingUsing;
+		public getPricingUsing(): string {
+			return this.pricingUsing;
 		}
 
-		public VaultInfo setPricingUsing(String pricingUsing) {
+		public setPricingUsing(pricingUsing: string): VaultInfo {
 			this.pricingUsing = pricingUsing;
 			return this;
 		}
 
-		public String getCreateTime() {
-			return createTime;
+		public getCreateTime(): string {
+			return this.createTime;
 		}
 
-		public VaultInfo setCreateTime(String createTime) {
+		public setCreateTime(createTime: string): VaultInfo {
 			this.createTime = createTime;
 			return this;
 		}
 
-		public String getModifyTime() {
-			return modifyTime;
+		public getModifyTime(): string {
+			return this.modifyTime;
 		}
 
-		public VaultInfo setModifyTime(String modifyTime) {
+		public setModifyTime(modifyTime: string): VaultInfo {
 			this.modifyTime = modifyTime;
 			return this;
 		}
 
-		public long getMaxSpace() {
-			return maxSpace;
+		public getMaxSpace(): number {
+			return this.maxSpace;
 		}
 
-		public VaultInfo setMaxSpace(long maxSpace) {
+		public setMaxSpace(maxSpace: number): VaultInfo {
 			this.maxSpace = maxSpace;
 			return this;
 		}
 
-		public long getDbSpaceUsed() {
-			return dbSpaceUsed;
+		public getDbSpaceUsed(): number {
+			return this.dbSpaceUsed;
 		}
 
-		public VaultInfo setDbSpaceUsed(long dbSpaceUsed) {
+		public setDbSpaceUsed(dbSpaceUsed: number): VaultInfo {
 			this.dbSpaceUsed = dbSpaceUsed;
 			return this;
 		}
 
-		public long getFileSpaceUsed() {
-			return fileSpaceUsed;
+		public getFileSpaceUsed(): number {
+			return this.fileSpaceUsed;
 		}
 
-		public VaultInfo setFileSpaceUsed(long fileSpaceUsed) {
+		public setFileSpaceUsed(fileSpaceUsed: number): VaultInfo {
 			this.fileSpaceUsed = fileSpaceUsed;
 			return this;
 		}
 
-		public boolean isExisting() {
-			return existing;
+		public isExisting(): boolean {
+			return this.existing;
 		}
 
-		public VaultInfo setExisting(boolean existing) {
+		public setExisting(existing: boolean): VaultInfo {
 			this.existing = existing;
 			return this;
 		}

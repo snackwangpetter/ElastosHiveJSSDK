@@ -1,12 +1,13 @@
+import { PricingPlan } from "../../payment/pricingplan";
 import { HiveResponseBody } from "./hiveresponsebody";
 
 export class PaymentPackageResponseBody extends HiveResponseBody {
-    private paymentSettings: PaymentSettings;
+    private paymentSettings: PaymentPackageResponseBody.PaymentSettings;
     private version: string;
     backupPlans: PricingPlan[];
     pricingPlans: PricingPlan[];
 
-    public getPaymentSettings(): PaymentSettings {
+    public getPaymentSettings(): PaymentPackageResponseBody.PaymentSettings {
         return this.paymentSettings;
     }
 

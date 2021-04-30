@@ -4,6 +4,7 @@ import { AuthToken } from "../auth/authtoken";
 import { AuthRequestBody } from "../network/request/authrequestbody";
 import { HiveResponseBody } from "../network/response/hiveresponsebody";
 import { ServiceEndpoint } from "../serviceendpoint";
+import { JwtUtil } from "../utils/jwtutil";
 import { HiveVaultRender } from "./hivevaultrender";
 
 export class AuthenticationServiceRender extends HiveVaultRender /* TODO JAVA implements HttpExceptionHandler */ {
@@ -39,14 +40,14 @@ export class AuthenticationServiceRender extends HiveVaultRender /* TODO JAVA im
                 .getIssuer();
     } */
 
-    public auth(token: string): AuthToken {
+    public async auth(token: string): Promise<AuthToken> {
         let rspBody = HiveResponseBody.validateBody(
-                this.getConnectionManager().getAuthApi()
-                        .auth(new AuthRequestBody(token))
-                        /* .execute()
-                        .body() */);
-        long exp = JwtUtil.getBody(rspBody.getToken()).getExpiration().getTime();
-        long expiresTime = System.currentTimeMillis() / 1000 + exp / 1000;
+                await this.getConnectionManager().getAuthApi()
+                .auth(new AuthRequestBody(token))
+                /* .execute()
+                .body() */);
+        let exp = JwtUtil.getBody(rspBody.getToken()).getExpiration().getTime();
+        let expiresTime = new Date().getTime() / 1000 + exp / 1000;
         return new AuthToken(rspBody.getToken(), expiresTime, AuthToken.TYPE_TOKEN);
     }
 }

@@ -1,5 +1,6 @@
 import { AppContext } from "./appcontext";
 import { ServiceBuilder } from "./backup/servicebuilder";
+import { CompletionException } from "./exception/illegalargumentexception";
 import { BackupService } from "./service/backupservice";
 import { DatabaseService } from "./service/databaseservice";
 import { FilesService } from "./service/filesservice";

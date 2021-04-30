@@ -1,4 +1,5 @@
 import { AppContextProvider } from "./appcontextprovider";
+import { IllegalArgumentException } from "./exception/completionexception";
 
 /**
  * The application context would contain the resources list below:
@@ -68,16 +69,16 @@ export class AppContext {
 				return preferredProviderAddress;
 
 			try {
-				List<DIDDocument.Service> services = null;
-				DID did = new DID(targetDid);
-				DIDDocument doc;
+				let services: DIDDocument.Service[] = null;
+				let did = new DID(targetDid);
+				let doc: DIDDocument;
 
 				doc = did.resolve();
 				if (doc == null)
 					throw new ProviderNotFoundException(
 							String.format("The DID %s has not published onto sideChain", targetDid));
 
-				services = doc.selectServices((String) null, "HiveVault");
+				services = doc.selectServices(null, "HiveVault");
 				if (services == null || services.size() == 0)
 					throw new ProviderNotSetException(
 							String.format("No 'HiveVault' services declared on DID document %s", targetDid));

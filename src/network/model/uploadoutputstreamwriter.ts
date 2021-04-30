@@ -1,13 +1,14 @@
-export class UploadOutputStreamWriter extends OutputStreamWriter {
-    private final HttpURLConnection connection;
+import { ConnectionManager } from "../../connection/connectionmanager";
 
-    public UploadOutputStreamWriter(HttpURLConnection connection, @NotNull OutputStream out) {
+export class UploadOutputStreamWriter extends OutputStreamWriter {
+    private connection: HttpURLConnection;
+
+    public constructor(connection: HttpURLConnection, out: OutputStream) {
         super(out);
         this.connection = connection;
     }
 
-    @Override
-    public void close() throws IOException {
+    public close() {
         super.close();
         // In order to get the failed message from response body.
         ConnectionManager.readConnection(connection);

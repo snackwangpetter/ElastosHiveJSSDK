@@ -1,3 +1,5 @@
+import { ChannelMessage } from "../network/model/channelmessage";
+
 export interface PubSubService {
     /**
      * Publish a new channel for the following subscript and message send/receive.

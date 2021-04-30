@@ -2,6 +2,14 @@ import { IPretendRequestInterceptor, Pretend } from "pretend";
 import { AuthApi } from "../network/authapi";
 import { Class } from "../class";
 import { ServiceEndpoint } from "../serviceendpoint";
+import { BackupApi } from "../network/backupapi";
+import { DatabaseApi } from "../network/databaseapi";
+import { FilesApi } from "../network/filesapi";
+import { NodeManageApi } from "../network/nodemanageapi";
+import { PaymentApi } from "../network/paymentapi";
+import { ScriptingApi } from "../network/scriptingapi";
+import { SubscriptionApi } from "../network/subscriptionapi";
+import { RequestInterceptor } from "./requestinterceptor";
 
 /*
  * Copyright (c) 2021 Elastos Foundation
@@ -28,23 +36,23 @@ export class ConnectionManager {
 	private static DEFAULT_TIMEOUT = 30;
 
 	private serviceEndpoint: ServiceEndpoint;
-	private authRequestInterceptor: IPretendRequestInterceptor;
-	/* TODO JAVA private RequestInterceptor plainRequestInterceptor;
- */
-	/* private subscriptionApi: SubscriptionApi;
+	private authRequestInterceptor: RequestInterceptor;
+	private plainRequestInterceptor: RequestInterceptor;
+
+	private subscriptionApi: SubscriptionApi;
 	private paymentApi: PaymentApi;
-	private databaseApi: DatabaseApi; */
+	private databaseApi: DatabaseApi;
 
 	private authApi: AuthApi;
-	/* private filesApi: FilesApi;
-	private scriptingApi: ScriptingApi;*/
+ 	private filesApi: FilesApi;
+	private scriptingApi: ScriptingApi;
 	private backupApi: BackupApi;
-	/* private nodeManageApi: NodeManageApi;  */
+	private nodeManageApi: NodeManageApi;
 
 	public constructor(serviceEndpoint: ServiceEndpoint) {
 		this.serviceEndpoint = serviceEndpoint;
-		/* TODO JAVA this.plainRequestInterceptor = new RequestInterceptor(this);
-		this.authRequestInterceptor  = new RequestInterceptor(this, false); */
+		this.plainRequestInterceptor = new RequestInterceptor(this);
+		//this.authRequestInterceptor  = new RequestInterceptor(this, false);
 	}
 
 	public getServiceEndpoint(): ServiceEndpoint {
@@ -53,59 +61,59 @@ export class ConnectionManager {
 
 	public getAuthApi(): AuthApi {
 		if (this.authApi == null)
-			this.authApi = ConnectionManager.createService(AuthApi, this.serviceEndpoint.getProviderAddress(), this.authRequestInterceptor);
+			this.authApi = ConnectionManager.createService(AuthApi, this.serviceEndpoint.getProviderAddress(), this.authRequestInterceptor.interceptor);
 
 		return this.authApi;
 	}
 
-	/* public NodeManageApi getNodeManagerApi() {
-		if (nodeManageApi == null)
-			nodeManageApi = createService(NodeManageApi.class, serviceEndpoint.getProviderAddress(), this.authRequestInterceptor);
+	public getNodeManagerApi(): NodeManageApi {
+		if (this.nodeManageApi == null)
+			this.nodeManageApi = ConnectionManager.createService(NodeManageApi, this.serviceEndpoint.getProviderAddress(), this.authRequestInterceptor.interceptor);
 
-		return nodeManageApi;
+		return this.nodeManageApi;
 	}
 
-	public FilesApi getFilesApi() {
-		if (filesApi == null)
-			filesApi = createService(FilesApi.class, serviceEndpoint.getProviderAddress(), this.plainRequestInterceptor);
+	public getFilesApi(): FilesApi {
+		if (this.filesApi == null)
+			this.filesApi = ConnectionManager.createService(FilesApi, this.serviceEndpoint.getProviderAddress(), this.plainRequestInterceptor.interceptor);
 
-		return filesApi;
+		return this.filesApi;
 	}
 
-	public SubscriptionApi getSubscriptionApi() {
-		if (subscriptionApi == null) {
-			subscriptionApi = createService(SubscriptionApi.class, serviceEndpoint.getProviderAddress(), this.plainRequestInterceptor);
+	public getSubscriptionApi(): SubscriptionApi {
+		if (this.subscriptionApi == null) {
+			this.subscriptionApi = ConnectionManager.createService(SubscriptionApi, this.serviceEndpoint.getProviderAddress(), this.plainRequestInterceptor.interceptor);
 		}
-		return subscriptionApi;
+		return this.subscriptionApi;
 	}
 
-	public PaymentApi getPaymentApi() {
-		if (paymentApi == null) {
-			paymentApi = createService(PaymentApi.class, serviceEndpoint.getProviderAddress(), this.plainRequestInterceptor);
+	public getPaymentApi(): PaymentApi {
+		if (this.paymentApi == null) {
+			this.paymentApi = ConnectionManager.createService(PaymentApi, this.serviceEndpoint.getProviderAddress(), this.plainRequestInterceptor.interceptor);
 		}
-		return paymentApi;
+		return this.paymentApi;
 	}
 
-	public DatabaseApi getDatabaseApi() {
-		if (databaseApi == null) {
-			databaseApi = createService(DatabaseApi.class, serviceEndpoint.getProviderAddress(), this.plainRequestInterceptor);
+	public getDatabaseApi(): DatabaseApi {
+		if (this.databaseApi == null) {
+			this.databaseApi = ConnectionManager.createService(DatabaseApi, this.serviceEndpoint.getProviderAddress(), this.plainRequestInterceptor.interceptor);
 		}
-		return databaseApi;
+		return this.databaseApi;
 	}
 
-	public ScriptingApi getScriptingApi() {
-		if (scriptingApi == null) {
-			scriptingApi = createService(ScriptingApi.class, serviceEndpoint.getProviderAddress(), this.plainRequestInterceptor);
+	public getScriptingApi(): ScriptingApi {
+		if (this.scriptingApi == null) {
+			this.scriptingApi = ConnectionManager.createService(ScriptingApi, this.serviceEndpoint.getProviderAddress(), this.plainRequestInterceptor.interceptor);
 		}
-		return scriptingApi;
+		return this.scriptingApi;
 	}
 
-	public BackupApi getBackupApi() {
-		if (backupApi == null) {
-			backupApi = createService(BackupApi.class, serviceEndpoint.getProviderAddress(), this.plainRequestInterceptor);
+	public getBackupApi(): BackupApi {
+		if (this.backupApi == null) {
+			this.backupApi = ConnectionManager.createService(BackupApi, this.serviceEndpoint.getProviderAddress(), this.plainRequestInterceptor.interceptor);
 		}
-		return backupApi;
-	} */
+		return this.backupApi;
+	}
 
 	/* public openConnection(String path): HttpURLConnection {
 		String url = serviceEndpoint.getProviderAddress() + BaseApi.API_VERSION + path;

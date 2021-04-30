@@ -1,6 +1,10 @@
+import dayjs from "dayjs";
+import { HiveSdkException } from "../../exception/hivesdkexception";
+import { HttpFailedException } from "../../exception/httpfailedexception";
+
 export class HiveResponseBody {
     private static SUCCESS = "OK";
-    private static FORMAT_DT: SimpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+    private static FORMAT_DT: "yyyy-MM-dd HH:mm:ss";
 
     private static errorMessages: Map<number, string> ;
 
@@ -46,7 +50,7 @@ export class HiveResponseBody {
             throw new HiveSdkException("Failed to get response body(null)");
 
         if (body.failed())
-            throw new HttpFailedException(600, getHttpErrorMessages().get(600));
+            throw new HttpFailedException(600, this.getHttpErrorMessages().get(600));
 
         return body;
     }
@@ -180,13 +184,13 @@ export class HiveResponseBody {
             default:
                 return new HttpFailedException(code, message);
         }
+    }*/
+
+    protected getDateStrByStamp(value: number): string {
+        return dayjs(value).format(HiveResponseBody.FORMAT_DT);
     }
 
-    protected String getDateStrByStamp(long value) {
-        return FORMAT_DT.format(new Date(value));
-    }
-
-    static class Error {
+    /*static class Error {
         @SerializedName("code")
         int code;
         @SerializedName("message")

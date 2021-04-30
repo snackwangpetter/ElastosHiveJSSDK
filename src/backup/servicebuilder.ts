@@ -1,3 +1,5 @@
+import { Backup } from "../backup";
+import { PromotionService } from "../service/promotionservice";
 import { PromotionServiceRender } from "./promotionservicerender";
 
 /**

@@ -1,3 +1,14 @@
+import { CountOptions } from "../database/countoptions";
+import { CreateCollectionOptions } from "../database/createcollectionoptions";
+import { DeleteOptions } from "../database/deleteoptions";
+import { DeleteResult } from "../database/deleteresult";
+import { FindOptions } from "../database/findoptions";
+import { InsertManyOptions } from "../database/insertmanyoptions";
+import { InsertManyResult } from "../database/insertmanyresult";
+import { InsertOneOptions } from "../database/insertoneoptions";
+import { InsertOneResult } from "../database/insertoneresult";
+import { UpdateOptions } from "../database/updateoptions";
+import { UpdateResult } from "../database/updateresult";
 import { JSONObject } from "../json";
 
 export interface DatabaseService {
@@ -52,7 +63,7 @@ export interface DatabaseService {
 	 *              maxTimeMS (int): The maximum amount of time to allow this operation to run, in milliseconds.
 	 * @return count size
 	 */
-	countDocuments(String collection, JsonNode query, CountOptions options): Promise<number>;
+	countDocuments(collection: string, query: JSONObject, options: CountOptions): Promise<number>;
 
 
 	/**
@@ -62,7 +73,7 @@ export interface DatabaseService {
 	 * @param options optional,refer to {@link FindOptions}
 	 * @return a JSON object document result
 	 */
-	CompletableFuture<JsonNode> findOne(String collection, JsonNode query, FindOptions options);
+	findOne(collection: string, query: JSONObject, options: FindOptions): Promise<JSONObject>;
 
 	/**
 	 * Find many documents
@@ -71,8 +82,7 @@ export interface DatabaseService {
 	 * @param options optional,refer to {@link FindOptions}
 	 * @return a JsonNode array result of document
 	 */
-	CompletableFuture<List<JsonNode>> findMany(String collection, JsonNode query, FindOptions options);
-
+	findMany(collection: string, query: JSONObject, options: FindOptions): Promise<JSONObject[]>;
 
 	/**
 	 * Update an existing document in a given collection
@@ -82,7 +92,7 @@ export interface DatabaseService {
 	 * @param options optional, refer to {@link UpdateOptions}
 	 * @return Results returned by {@link UpdateResult} wrapper
 	 */
-	updateOne(String collection, JsonNode filter, JsonNode update, UpdateOptions options): Promise<UpdateResult>;
+	updateOne(collection: string, filter: JSONObject, update: JSONObject, options: UpdateOptions): Promise<UpdateResult>;
 
 
 	/**
@@ -93,7 +103,7 @@ export interface DatabaseService {
 	 * @param options optional, refer to {@link UpdateOptions}
 	 * @return Results returned by {@link UpdateResult} wrapper
 	 */
-	updateMany(String collection, JsonNode filter, JsonNode update, UpdateOptions options): Promise<UpdateResult>;
+	updateMany(collection: string, filter: JSONObject, update: JSONObject, options: UpdateOptions): Promise<UpdateResult>;
 
 
 	/**
@@ -103,7 +113,7 @@ export interface DatabaseService {
 	 * @param options
 	 * @return
 	 */
-	deleteOne(String collection, JsonNode filter, DeleteOptions options): Promise<DeleteResult>;
+	deleteOne(collection: string, filter: JSONObject, options: DeleteOptions): Promise<DeleteResult>;
 
 
 	/**
@@ -113,5 +123,5 @@ export interface DatabaseService {
 	 * @param options
 	 * @return
 	 */
-	deleteMany(String collection, JsonNode filter, DeleteOptions options): Promise<DeleteResult>;
+	deleteMany(collection: string, filter: JSONObject, options: DeleteOptions): Promise<DeleteResult>;
 }

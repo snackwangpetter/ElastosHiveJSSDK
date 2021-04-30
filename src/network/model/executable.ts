@@ -1,5 +1,8 @@
+import { HiveSdkException } from "../../exception/hivesdkexception";
 import { JSONObject } from "../../json";
 import { Condition } from "./condition";
+import { ScriptDeleteExecutableBody } from "./scriptdeleteexecutablebody";
+import { ScriptFileUploadBody } from "./scriptfileuploadbody";
 
 export class Executable extends Condition {
 	public static TYPE_FIND = "find";
@@ -42,7 +45,7 @@ export class Executable extends Condition {
 	}
 
 	public static createFileDownloadParams(groupId: string, path: string): JSONObject {
-		return createFileUploadParams(groupId, path);
+		return this.createFileUploadParams(groupId, path);
 	}
 
 	public static createFilePropertiesExecutable(name: string): Executable {
@@ -51,7 +54,7 @@ export class Executable extends Condition {
 	}
 
 	public static createFilePropertiesParams(groupId: string, path: string): JSONObject {
-		return createFileUploadParams(groupId, path);
+		return this.createFileUploadParams(groupId, path);
 	}
 
 	public static createFileHashExecutable(name: string): Executable {
@@ -60,7 +63,7 @@ export class Executable extends Condition {
 	}
 
 	public static createFileHashParams(groupId: string, path: string): JSONObject {
-		return createFileUploadParams(groupId, path);
+		return this.createFileUploadParams(groupId, path);
 	}
 
 	public static createInsertExecutable(colletion: string, body: ScriptDeleteExecutableBody): Executable {

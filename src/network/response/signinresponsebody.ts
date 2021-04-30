@@ -1,3 +1,5 @@
+import { HiveSdkException } from "../../exception/hivesdkexception";
+import { JwtUtil } from "../../utils/jwtutil";
 import { HiveResponseBody } from "./hiveresponsebody";
 
 export class SignInResponseBody extends HiveResponseBody {
@@ -5,13 +7,13 @@ export class SignInResponseBody extends HiveResponseBody {
     private challenge: string;
 
     public getChallenge(): string {
-        return this.chwallenge;
+        return this.challenge;
     }
 
     public checkValid(validAudience: string): Claims {
-        let claims = JwtUtil.getBody(challenge);
+        let claims = JwtUtil.getBody(this.challenge);
 
-        if (claims.getExpiration().getTime() <= System.currentTimeMillis() )
+        if (claims.getExpiration().getTime() <= new Date().getTime() )
             throw new HiveSdkException("Bad jwt expiration date");
 
         if (!claims.getAudience().equals(validAudience))
