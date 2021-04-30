@@ -1,18 +1,21 @@
+import { Get, Post } from "pretend";
+import { BaseApi } from "./baseapi";
+import { CallScriptRequestBody } from "./request/callscriptrequestbody";
+import { RegisterScriptRequestBody } from "./request/registerscriptrequestbody";
+import { RegisterScriptResponseBody } from "./response/registerscriptresponsebody";
+
 export class ScriptingApi {
-	/* String API_SCRIPT_UPLOAD = "/scripting/run_script_upload";
+	private static API_SCRIPT_UPLOAD = "/scripting/run_script_upload";
 
-	@POST(BaseApi.API_VERSION + "/scripting/set_script")
-	Call<RegisterScriptResponseBody> registerScript(@Body RegisterScriptRequestBody body);
+	@Post(BaseApi.API_VERSION + "/scripting/set_script")
+	registerScript(/* @Body  */body: RegisterScriptRequestBody): Promise<RegisterScriptResponseBody> { return null; }
 
-	@POST(BaseApi.API_VERSION + "/scripting/run_script")
-	Call<ResponseBody> callScript(@Body CallScriptRequestBody body);
+	@Post(BaseApi.API_VERSION + "/scripting/run_script")
+	callScript(/* @Body  */body: CallScriptRequestBody): Promise</* ResponseBody */any> { return null; }
 
-	@GET(BaseApi.API_VERSION+"/scripting/run_script_url/{targetDid}@{appDid}/{scriptName}")
-	Call<ResponseBody> callScriptUrl(@Path("targetDid") String targetDid,
-									 @Path("appDid") String appDid,
-									 @Path("scriptName") String scriptName,
-									 @Query("params") String params);
+	@Get(BaseApi.API_VERSION+"/scripting/run_script_url/{targetDid}@{appDid}/{scriptName}")
+	callScriptUrl(targetDid: string, appDid: string, scriptName: string, /* @Query("params")  */params: string): Promise</* ResponseBody */any> { return null; }
 
-	@POST(BaseApi.API_VERSION + "/scripting/run_script_download/{transaction_id}")
-	Call<ResponseBody> callDownload(@Path("transaction_id") String transactionId); */
+	@Post(BaseApi.API_VERSION + "/scripting/run_script_download/{transactionId}")
+	callDownload(transactionId: string): Promise</* ResponseBody */any> { return null; }
 }

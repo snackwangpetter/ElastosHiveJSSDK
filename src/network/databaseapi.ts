@@ -1,34 +1,54 @@
+import { Post } from "pretend";
+import { BaseApi } from "./baseapi";
+import { CountDocRequestBody } from "./request/countdocrequestbody";
+import { CreateCollectionRequestBody } from "./request/createcollectionrequestbody";
+import { DeleteCollectionRequestBody } from "./request/deletecollectionrequestbody";
+import { DeleteDocRequestBody } from "./request/deletedocrequestbody";
+import { FindDocRequestBody } from "./request/finddocrequestbody";
+import { FindDocsRequestBody } from "./request/finddocsrequestbody";
+import { InsertDocRequestBody } from "./request/insertdocrequestbody";
+import { InsertDocsRequestBody } from "./request/insertdocsrequestbody";
+import { UpdateDocRequestBody } from "./request/updatedocrequestbody";
+import { CountDocResponseBody } from "./response/countdocresponsebody";
+import { DeleteDocResponseBody } from "./response/deletedocresponsebody";
+import { FindDocResponseBody } from "./response/finddocresponsebody";
+import { FindDocsResponseBody } from "./response/finddocsresponsebody";
+import { HiveResponseBody } from "./response/hiveresponsebody";
+import { InsertDocResponseBody } from "./response/insertdocresponsebody";
+import { InsertDocsResponseBody } from "./response/insertdocsresponsebody";
+import { UpdateDocResponseBody } from "./response/updatedocresponsebody";
+
 export class DatabaseApi {
-	/* @POST(BaseApi.API_VERSION + "/db/create_collection")
-	Call<HiveResponseBody> createCollection(@Body CreateCollectionRequestBody body);
+	@Post(BaseApi.API_VERSION + "/db/create_collection")
+	createCollection(/* @Body */body: CreateCollectionRequestBody): Promise<HiveResponseBody> { return null; }
 
-	@POST(BaseApi.API_VERSION + "/db/delete_collection")
-	Call<HiveResponseBody> deleteCollection(@Body DeleteCollectionRequestBody body);
+	@Post(BaseApi.API_VERSION + "/db/delete_collection")
+	deleteCollection(/* @Body */body: DeleteCollectionRequestBody): Promise<HiveResponseBody> { return null; }
 
-	@POST(BaseApi.API_VERSION + "/db/insert_one")
-	Call<InsertDocResponseBody> insertOne(@Body InsertDocRequestBody body);
+	@Post(BaseApi.API_VERSION + "/db/insert_one")
+	insertOne(/* @Body */body: InsertDocRequestBody): Promise<InsertDocResponseBody> { return null; }
 
-	@POST(BaseApi.API_VERSION + "/db/insert_many")
-	Call<InsertDocsResponseBody> insertMany(@Body InsertDocsRequestBody body);
+	@Post(BaseApi.API_VERSION + "/db/insert_many")
+	insertMany(/* @Body */body: InsertDocsRequestBody): Promise<InsertDocsResponseBody> { return null; }
 
-	@POST(BaseApi.API_VERSION + "/db/update_one")
-	Call<UpdateDocResponseBody> updateOne(@Body UpdateDocRequestBody body);
+	@Post(BaseApi.API_VERSION + "/db/update_one")
+	updateOne(/* @Body */body: UpdateDocRequestBody): Promise<UpdateDocResponseBody> { return null; }
 
-	@POST(BaseApi.API_VERSION + "/db/update_many")
-	Call<UpdateDocResponseBody> updateMany(@Body UpdateDocRequestBody body);
+	@Post(BaseApi.API_VERSION + "/db/update_many")
+	updateMany(/* @Body */body: UpdateDocRequestBody): Promise<UpdateDocResponseBody> { return null; }
 
-	@POST(BaseApi.API_VERSION + "/db/delete_one")
-	Call<DeleteDocResponseBody> deleteOne(@Body DeleteDocRequestBody body);
+	@Post(BaseApi.API_VERSION + "/db/delete_one")
+	deleteOne(/* @Body */body: DeleteDocRequestBody): Promise<DeleteDocResponseBody> { return null; }
 
-	@POST(BaseApi.API_VERSION + "/db/delete_many")
-	Call<DeleteDocResponseBody> deleteMany(@Body DeleteDocRequestBody body);
+	@Post(BaseApi.API_VERSION + "/db/delete_many")
+	deleteMany(/* @Body */body: DeleteDocRequestBody): Promise<DeleteDocResponseBody> { return null; }
 
-	@POST(BaseApi.API_VERSION + "/db/count_documents")
-	Call<CountDocResponseBody> countDocs(@Body CountDocRequestBody body);
+	@Post(BaseApi.API_VERSION + "/db/count_documents")
+	countDocs(/* @Body */body: CountDocRequestBody): Promise<CountDocResponseBody> { return null; }
 
-	@POST(BaseApi.API_VERSION + "/db/find_one")
-	Call<FindDocResponseBody> findOne(@Body FindDocRequestBody body);
+	@Post(BaseApi.API_VERSION + "/db/find_one")
+	findOne(/* @Body */body: FindDocRequestBody): Promise<FindDocResponseBody> { return null; }
 
-	@POST(BaseApi.API_VERSION + "/db/find_many")
-	Call<FindDocsResponseBody> findMany(@Body FindDocsRequestBody body); */
+	@Post(BaseApi.API_VERSION + "/db/find_many")
+	findMany(/* @Body */body: FindDocsRequestBody): Promise<FindDocsResponseBody> { return null; }
 }

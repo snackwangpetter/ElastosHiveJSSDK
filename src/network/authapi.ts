@@ -9,7 +9,7 @@ import { AuthResponseBody } from "./response/authresponsebody";
 export class AuthApi {
 	@Post(BaseApi.API_VERSION + "/did/sign_in")
 	@ResponseType(SignInResponseBody)
-	async signIn(/* @Body */ reqBody: SignInRequestBody) {}
+	async signIn(/* @Body */ reqBody: SignInRequestBody): Promise<SignInResponseBody> { return null; }
 
 	@Post(BaseApi.API_VERSION + "/did/auth")
 	@ResponseType(AuthResponseBody)

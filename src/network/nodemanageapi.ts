@@ -1,7 +1,12 @@
-export class NodeManageApi {
-	/* @GET(BaseApi.API_VERSION + "/hive/version")
-	Call<NodeVersionResponseBody> version();
+import { Get } from "pretend";
+import { BaseApi } from "./baseapi";
+import { NodeCommitHashResponseBody } from "./response/nodecommithashresponsebody";
+import { NodeVersionResponseBody } from "./response/nodeversionresponsebody";
 
-	@GET(BaseApi.API_VERSION + "/hive/commithash")
-	Call<NodeCommitHashResponseBody> commitHash(); */
+export class NodeManageApi {
+	@Get(BaseApi.API_VERSION + "/hive/version")
+	version(): Promise<NodeVersionResponseBody> { return null; }
+
+	@Get(BaseApi.API_VERSION + "/hive/commithash")
+	commitHash(): Promise<NodeCommitHashResponseBody> { return null; }
 }

@@ -27,10 +27,14 @@ export abstract class HiveVaultRender extends HttpExceptionHandler {
     }
 
     // TODO: do we really need those CompletionExceptions inherited from java ?
-    protected promiseWithConvertedException<T>(runnable: ()=>T): Promise<T> {
-        return new Promise<T>((resolve, reject)=>{
+    protected promiseWithConvertedException<T>(runnable: ()=>T | Promise<T>): Promise<T> {
+        return new Promise<T>(async (resolve, reject)=>{
             try {
-                resolve(runnable());
+                let result = runnable();
+                if (result instanceof Promise)
+                    resolve(await result);
+                else
+                    resolve(result);
             }
             catch (e) {
 				throw new CompletionException(this.convertException(e));

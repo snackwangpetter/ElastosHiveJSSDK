@@ -1,6 +1,6 @@
 export class CryptoUtil {
     public static getSHA256(str: string): string {
-        MessageDigest messageDigest;
+        /* MessageDigest messageDigest;
         String encodestr = "";
         try {
             messageDigest = MessageDigest.getInstance("SHA-256");
@@ -11,11 +11,11 @@ export class CryptoUtil {
         } catch (UnsupportedEncodingException e) {
             e.printStackTrace();
         }
-        return encodestr;
+        return encodestr; */
     }
 
     private static byte2Hex(bytes: Buffer): string {
-        StringBuffer stringBuffer = new StringBuffer();
+        /* StringBuffer stringBuffer = new StringBuffer();
         String temp = null;
         for (int i = 0; i < bytes.length; i++) {
             temp = Integer.toHexString(bytes[i] & 0xFF);
@@ -25,6 +25,6 @@ export class CryptoUtil {
             }
             stringBuffer.append(temp);
         }
-        return stringBuffer.toString();
+        return stringBuffer.toString(); */
     }
 }

@@ -32,36 +32,36 @@ export class DatabaseServiceRender extends HiveVaultRender implements DatabaseSe
 	}
 
 	public createCollection(name: string, options: CreateCollectionOptions): Promise<boolean> {
-		return this.promiseWithConvertedException<boolean>(()=>{
+		return this.promiseWithConvertedException<boolean>(async ()=>{
 			HiveResponseBody.validateBody(
-				this.getConnectionManager().getDatabaseApi()
+				await this.getConnectionManager().getDatabaseApi()
 						.createCollection(new CreateCollectionRequestBody(name))
-						.execute()
-						.body());
+						/* .execute()
+						.body() */);
 			return true;
 		});
 	}
 
 	public deleteCollection(name: string): Promise<boolean> {
-		return this.promiseWithConvertedException<boolean>(()=>{
+		return this.promiseWithConvertedException<boolean>(async ()=>{
 			HiveResponseBody.validateBody(
-					this.getConnectionManager().getDatabaseApi()
+					await this.getConnectionManager().getDatabaseApi()
 							.deleteCollection(new DeleteCollectionRequestBody(name))
-							.execute()
-							.body());
+							/* .execute()
+							.body() */);
 			return true;
 		});
 	}
 
 	public insertOne(collection: string, doc: JSONObject, options: InsertOneOptions): Promise<InsertOneResult> {
-		return this.promiseWithConvertedException<InsertOneResult>(()=>{
+		return this.promiseWithConvertedException<InsertOneResult>(async ()=>{
 			let body = HiveResponseBody.validateBody(
-					this.getConnectionManager().getDatabaseApi()
+					await this.getConnectionManager().getDatabaseApi()
 					.insertOne(new InsertDocRequestBody(collection,
 							HiveResponseBody.jsonNode2KeyValueDic(doc),
 							options))
-					.execute()
-					.body());
+					/* .execute()
+					.body() */);
 			return new InsertOneResult()
 					.setInsertedId(body.getInsertedId())
 					.setAcknowledged(body.getAcknowledged());
@@ -69,14 +69,14 @@ export class DatabaseServiceRender extends HiveVaultRender implements DatabaseSe
 	}
 
 	public insertMany(collection: string, docs: JSONObject[], options: InsertManyOptions): Promise<InsertManyResult> {
-		return this.promiseWithConvertedException<InsertManyResult>(()=>{
+		return this.promiseWithConvertedException<InsertManyResult>(async ()=>{
 			let body = HiveResponseBody.validateBody(
-					this.getConnectionManager().getDatabaseApi()
+					await this.getConnectionManager().getDatabaseApi()
 							.insertMany(new InsertDocsRequestBody(collection,
 									HiveResponseBody.jsonNodeList2KeyValueDicList(docs),
 									options))
-							.execute()
-							.body());
+							/* .execute()
+							.body() */);
 			return new InsertManyResult()
 					.setInsertedIds(body.getInsertedIds())
 					.setAcknowledged(body.getAcknowledged());
@@ -84,15 +84,15 @@ export class DatabaseServiceRender extends HiveVaultRender implements DatabaseSe
 	}
 
 	public countDocuments(collection: string, query: JSONObject, options: CountOptions): Promise<number> {
-		return this.promiseWithConvertedException<number>(()=>{
+		return this.promiseWithConvertedException<number>(async ()=>{
 			return HiveResponseBody.validateBody(
-					this.getConnectionManager().getDatabaseApi()
+					await this.getConnectionManager().getDatabaseApi()
 							.countDocs(new CountDocRequestBody(
 									collection,
 									HiveResponseBody.jsonNode2KeyValueDic(query),
 									options))
-							.execute()
-							.body()).getCount();
+							/* .execute()
+							.body() */).getCount();
 		});
 	}
 

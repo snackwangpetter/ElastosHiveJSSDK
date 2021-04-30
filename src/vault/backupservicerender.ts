@@ -36,12 +36,12 @@ export class BackupServiceRender extends HiveVaultRender implements BackupServic
     }
 
     public startBackup(): Promise<void> {
-        return this.promiseWithConvertedException<void>(()=>{
+        return this.promiseWithConvertedException<void>(async ()=>{
             HiveResponseBody.validateBody(
-                    this.getConnectionManager().getBackupApi()
-                            .saveToNode(new BackupSaveRequestBody(this.tokenResolver.getToken().getAccessToken()))
-                            .execute()
-                            .body());
+                    await this.getConnectionManager().getBackupApi()
+                            .saveToNode(new BackupSaveRequestBody((await this.tokenResolver.getToken()).getAccessToken()))
+                            /* .execute()
+                            .body() */);
         });
     }
 
@@ -50,13 +50,13 @@ export class BackupServiceRender extends HiveVaultRender implements BackupServic
     }
 
     public restoreFrom(): Promise<void> {
-        return this.promiseWithConvertedException<void>(()=>{
+        return this.promiseWithConvertedException<void>(async ()=>{
             HiveResponseBody.validateBody(
-                    this.getConnectionManager().getBackupApi()
+                    await this.getConnectionManager().getBackupApi()
                             .restoreFromNode(new BackupRestoreRequestBody(
-                                    this.tokenResolver.getToken().getAccessToken()))
-                            .execute()
-                            .body());
+                                    (await this.tokenResolver.getToken()).getAccessToken()))
+                            /* .execute()
+                            .body() */);
         });
     }
 
@@ -64,13 +64,12 @@ export class BackupServiceRender extends HiveVaultRender implements BackupServic
         throw new UnsupportedOperationException();
     }
 
-    public checkResult(): Promise<BackupResult> {
-        return this.promiseWithConvertedException<BackupResult>(()=>{
+    public checkResult(): Promise<BackupService.BackupResult> {
+        return this.promiseWithConvertedException<BackupService.BackupResult>(async ()=>{
             return HiveResponseBody.validateBody(
-                    this.getConnectionManager().getBackupApi()
-                            .getState()
-                            .execute()
-                            .body()).getStatusResult();
+                    await this.getConnectionManager().getBackupApi().getState()
+                            /* .execute()
+                            .body() */).getStatusResult();
         });
     }
 }

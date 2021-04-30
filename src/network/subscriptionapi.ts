@@ -1,22 +1,28 @@
+import { Get, Post } from "pretend";
+import { BaseApi } from "./baseapi";
+import { HiveResponseBody } from "./response/hiveresponsebody";
+import { VaultCreateResponseBody } from "./response/vaultcreateresponsebody";
+import { VaultInfoResponseBody } from "./response/vaultinforesponsebody";
+
 export class SubscriptionApi {
-	/* @POST(BaseApi.API_VERSION + "/service/vault/create")
-	Call<VaultCreateResponseBody> createVault();
+	@Post(BaseApi.API_VERSION + "/service/vault/create")
+	createVault(): Promise<VaultCreateResponseBody> { return null; }
 
-	@POST(BaseApi.API_VERSION + "/service/vault/freeze")
-	Call<HiveResponseBody> freeze();
+	@Post(BaseApi.API_VERSION + "/service/vault/freeze")
+	freeze(): Promise<HiveResponseBody> { return null; }
 
-	@POST(BaseApi.API_VERSION + "/service/vault/unfreeze")
-	Call<HiveResponseBody> unfreeze();
+	@Post(BaseApi.API_VERSION + "/service/vault/unfreeze")
+	unfreeze(): Promise<HiveResponseBody> { return null; }
 
-	@POST(BaseApi.API_VERSION + "/service/vault/remove")
-	Call<HiveResponseBody> removeVault();
+	@Post(BaseApi.API_VERSION + "/service/vault/remove")
+	removeVault(): Promise<HiveResponseBody> { return null; }
 
-	@GET(BaseApi.API_VERSION + "/service/vault")
-	Call<VaultInfoResponseBody> getVaultInfo();
+	@Get(BaseApi.API_VERSION + "/service/vault")
+	getVaultInfo(): Promise<VaultInfoResponseBody> { return null; }
 
-	@POST(BaseApi.API_VERSION + "/service/vault_backup/create")
-	Call<VaultCreateResponseBody> createBackupVault();
+	@Post(BaseApi.API_VERSION + "/service/vault_backup/create")
+	createBackupVault(): Promise<VaultCreateResponseBody> { return null; }
 
-	@GET(BaseApi.API_VERSION + "/service/vault_backup")
-	Call<VaultInfoResponseBody> getBackupVaultInfo(); */
+	@Get(BaseApi.API_VERSION + "/service/vault_backup")
+	getBackupVaultInfo(): Promise<VaultInfoResponseBody> { return null; }
 }

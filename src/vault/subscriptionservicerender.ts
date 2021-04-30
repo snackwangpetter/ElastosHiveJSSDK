@@ -1,4 +1,5 @@
 import { throws } from "node:assert";
+import { VaultAlreadyExistsException } from "../exception/vaultalreadyexistsexception";
 import { HiveResponseBody } from "../network/response/hiveresponsebody";
 import { VaultInfoResponseBody } from "../network/response/vaultinforesponsebody";
 import { ServiceEndpoint } from "../serviceendpoint";
@@ -19,7 +20,7 @@ export class SubscriptionServiceRender extends HiveVaultRender {
                         .execute()
                         .body());
         if (Boolean.TRUE.equals(body.getExisting())) {
-            throw new VaultAlreadyExistException("The vault already exists");
+            throw new VaultAlreadyExistsException("The vault already exists");
         }
     }
 
@@ -30,7 +31,7 @@ export class SubscriptionServiceRender extends HiveVaultRender {
                         .execute()
                         .body());
         if (Boolean.TRUE.equals(body.getExisting())) {
-            throw new VaultAlreadyExistException("The backup vault already exists");
+            throw new VaultAlreadyExistsException("The backup vault already exists");
         }
     }
 

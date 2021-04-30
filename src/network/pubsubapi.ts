@@ -1,25 +1,35 @@
+import { Get, Post } from "pretend";
+import { BaseApi } from "./baseapi";
+import { PopMessageRequestBody } from "./request/popmessagerequestbody";
+import { PubsubRequestBody } from "./request/pubsubrequestbody";
+import { PubsubSubscribeRequestBody } from "./request/pubsubsubscriberequestbody";
+import { PushMessageRequestBody } from "./request/pushmessagerequestbody";
+import { HiveResponseBody } from "./response/hiveresponsebody";
+import { PopMessageResponseBody } from "./response/popmessageresponsebody";
+import { PubsubChannelsResponseBody } from "./response/pubsubchannelsresponsebody";
+
 export class PubsubApi {
-    /* @POST(BaseApi.API_VERSION + "/pubsub/publish")
-    Call<HiveResponseBody> publish(@Body PubsubRequestBody body);
+    @Post(BaseApi.API_VERSION + "/pubsub/publish")
+    publish(/* @Body  */body: PubsubRequestBody): Promise<HiveResponseBody> { return null; }
 
-    @POST(BaseApi.API_VERSION + "/pubsub/remove")
-    Call<HiveResponseBody> remove(@Body PubsubRequestBody body);
+    @Post(BaseApi.API_VERSION + "/pubsub/remove")
+    remove(/* @Body  */body: PubsubRequestBody): Promise<HiveResponseBody> { return null; }
 
-    @GET(BaseApi.API_VERSION + "/pubsub/pub/channels")
-    Call<PubsubChannelsResponseBody> getPublishedChannels();
+    @Get(BaseApi.API_VERSION + "/pubsub/pub/channels")
+    getPublishedChannels(): Promise<PubsubChannelsResponseBody> { return null; }
 
-    @GET(BaseApi.API_VERSION + "/pubsub/sub/channels")
-    Call<PubsubChannelsResponseBody> getSubscribedChannels();
+    @Get(BaseApi.API_VERSION + "/pubsub/sub/channels")
+    getSubscribedChannels(): Promise<PubsubChannelsResponseBody> { return null; }
 
-    @POST(BaseApi.API_VERSION + "/pubsub/subscribe")
-    Call<HiveResponseBody> subscribe(@Body PubsubSubscribeRequestBody body);
+    @Post(BaseApi.API_VERSION + "/pubsub/subscribe")
+    subscribe(/* @Body  */body: PubsubSubscribeRequestBody): Promise<HiveResponseBody> { return null; }
 
-    @POST(BaseApi.API_VERSION + "/pubsub/unsubscribe")
-    Call<HiveResponseBody> unsubscribe(@Body PubsubSubscribeRequestBody body);
+    @Post(BaseApi.API_VERSION + "/pubsub/unsubscribe")
+    unsubscribe(/* @Body  */body: PubsubSubscribeRequestBody): Promise<HiveResponseBody> { return null; }
 
-    @POST(BaseApi.API_VERSION + "/pubsub/push")
-    Call<HiveResponseBody> push(@Body PushMessageRequestBody body);
+    @Post(BaseApi.API_VERSION + "/pubsub/push")
+    push(/* @Body  */body: PushMessageRequestBody): Promise<HiveResponseBody> { return null; }
 
-    @POST(BaseApi.API_VERSION + "/pubsub/pop")
-    Call<PopMessageResponseBody> pop(@Body PopMessageRequestBody body); */
+    @Post(BaseApi.API_VERSION + "/pubsub/pop")
+    pop(/* @Body  */body: PopMessageRequestBody): Promise<PopMessageResponseBody> { return null; }
 }
