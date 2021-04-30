@@ -1,7 +1,7 @@
 export class FindOptions {
 	private projection: Map<string, any> ;
 	private skip: number;
-	private sort: FieldEntry[];
+	private sort: FindOptions.FieldEntry[];
 	// TODO JAVA @SerializedName("allow_partial_results")
 	private allowPartialResults: boolean;
 	// TODO JAVA @SerializedName("batch_size")
@@ -21,7 +21,7 @@ export class FindOptions {
 		return this;
 	}
 
-	public setSort(sort: FieldEntry[]): FindOptions {
+	public setSort(sort: FindOptions.FieldEntry[]): FindOptions {
 		this.sort = sort;
 		return this;
 	}

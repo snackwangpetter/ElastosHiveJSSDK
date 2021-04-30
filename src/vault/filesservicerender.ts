@@ -1,3 +1,15 @@
+import { stat } from "node:fs";
+import path from "node:path";
+import { Class } from "../class";
+import { FileDoesNotExistException } from "../exception/filedoesnotexistexception";
+import { HttpFailedException } from "../exception/httpfailedexception";
+import { CompletionException } from "../exception/unsupportedoperationexception";
+import { FilesApi } from "../network/filesapi";
+import { FileInfo } from "../network/model/fileinfo";
+import { FilesCopyRequestBody } from "../network/request/filescopyrequestbody";
+import { FilesDeleteRequestBody } from "../network/request/filesdeleterequestbody";
+import { FilesMoveRequestBody } from "../network/request/filesmoverequestbody";
+import { HiveResponseBody } from "../network/response/hiveresponsebody";
 import { FilesService } from "../service/filesservice";
 import { Vault } from "../vault ";
 import { HiveVaultRender } from "./hivevaultrender";
@@ -8,128 +20,87 @@ export class FilesServiceRender extends HiveVaultRender implements FilesService,
 		super(vault);
 	}
 
-	/* @Override
-	public <T> CompletableFuture<T> upload(String path, Class<T> resultType) {
-		return CompletableFuture.supplyAsync(() -> {
-			try {
-				return HiveResponseBody.getRequestStream(
-						getConnectionManager().openConnection(FilesApi.API_UPLOAD + "/" + path),
-						resultType);
-			} catch (Exception e) {
-				throw new CompletionException(convertException(e));
-			}
+	public upload<T>(path: string, resultType: Class<T>): Promise<T> {
+		return this.promiseWithConvertedException<T>(()=>{
+			return HiveResponseBody.getRequestStream(
+				this.getConnectionManager().openConnection(FilesApi.API_UPLOAD + "/" + path),
+				resultType);
 		});
 	}
 
-	@Override
-	public CompletableFuture<List<FileInfo>> list(String path) {
-		return CompletableFuture.supplyAsync(() -> {
-			try {
-				return HiveResponseBody.validateBody(
-						getConnectionManager().getFilesApi()
-								.list(path)
-								.execute()
-								.body()).getFileInfoList();
-			} catch (Exception e) {
-				throw new CompletionException(convertException(e));
-			}
+	public list(path: string): Promise<FileInfo[]> {
+		return this.promiseWithConvertedException<FileInfo[]>(()=>{
+			return HiveResponseBody.validateBody(
+				this.getConnectionManager().getFilesApi()
+						.list(path)
+						.execute()
+						.body()).getFileInfoList();
 		});
 	}
 
-	@Override
-	public CompletableFuture<FileInfo> stat(String path) {
-		return CompletableFuture.supplyAsync(() -> {
-			try {
-				return HiveResponseBody.validateBody(
-						getConnectionManager().getFilesApi()
-								.properties(path)
-								.execute().body()).getFileInfo();
-			} catch (Exception e) {
-				throw new CompletionException(convertException(e));
-			}
+	public stat(path: string): Promise<FileInfo> {
+		return this.promiseWithConvertedException<FileInfo>(()=>{
+			return HiveResponseBody.validateBody(
+				this.getConnectionManager().getFilesApi()
+						.properties(path)
+						.execute().body()).getFileInfo();
 		});
 	}
 
-	@Override
-	public <T> CompletableFuture<T> download(String path, Class<T> resultType) {
-		return CompletableFuture.supplyAsync(() -> {
-			try {
-				return HiveResponseBody.getResponseStream(
-						getConnectionManager().getFilesApi()
-								.download(path)
-								.execute(), resultType);
-			} catch (Exception e) {
-				throw new CompletionException(convertException(e));
-			}
+	public download<T>(path: string, resultType: Class<T> ): Promise<T> {
+		return this.promiseWithConvertedException<T>(()=>{
+			return HiveResponseBody.getResponseStream(
+				this.getConnectionManager().getFilesApi()
+						.download(path)
+						.execute(), resultType);
 		});
 	}
 
-	@Override
-	public CompletableFuture<Boolean> delete(String path) {
-		return CompletableFuture.supplyAsync(() -> {
-			try {
-				HiveResponseBody.validateBody(getConnectionManager().getFilesApi()
-						.delete(new FilesDeleteRequestBody(path))
+	public delete(path: string): Promise<boolean> {
+		return this.promiseWithConvertedException<boolean>(()=>{
+			HiveResponseBody.validateBody(this.getConnectionManager().getFilesApi()
+				.delete(new FilesDeleteRequestBody(path))
+				.execute().body());
+			return true;
+		});
+	}
+
+	public move(source: string, target: string): Promise<boolean> {
+		return this.promiseWithConvertedException<boolean>(()=>{
+			HiveResponseBody.validateBody(
+				this.getConnectionManager().getFilesApi()
+						.move(new FilesMoveRequestBody(source, target))
 						.execute().body());
-				return true;
-			} catch (Exception e) {
-				throw new CompletionException(convertException(e));
-			}
+			return true;
 		});
 	}
 
-	@Override
-	public CompletableFuture<Boolean> move(String source, String target) {
-		return CompletableFuture.supplyAsync(() -> {
-			try {
-				HiveResponseBody.validateBody(
-						getConnectionManager().getFilesApi()
-								.move(new FilesMoveRequestBody(source, target))
-								.execute().body());
-				return true;
-			} catch (Exception e) {
-				throw new CompletionException(convertException(e));
-			}
+	public copy(source: string, target: string): Promise<boolean> {
+		return this.promiseWithConvertedException<boolean>(()=>{
+			HiveResponseBody.validateBody(
+				this.getConnectionManager().getFilesApi()
+				.copy(new FilesCopyRequestBody(source, target))
+				.execute().body());
+			return true;
 		});
 	}
 
-	@Override
-	public CompletableFuture<Boolean> copy(String source, String target) {
-		return CompletableFuture.supplyAsync(() -> {
-			try {
-				HiveResponseBody.validateBody(
-						getConnectionManager().getFilesApi()
-						.copy(new FilesCopyRequestBody(source, target))
-						.execute().body());
-				return true;
-			} catch (Exception e) {
-				throw new CompletionException(convertException(e));
-			}
+	public hash(path: string): Promise<string> {
+		return this.promiseWithConvertedException<string>(()=>{
+			return HiveResponseBody.validateBody(
+				this.getConnectionManager().getFilesApi()
+						.hash(path)
+						.execute()
+						.body()).getSha256();
 		});
 	}
 
-	@Override
-	public CompletableFuture<String> hash(String path) {
-		return CompletableFuture.supplyAsync(() -> {
-			try {
-				return HiveResponseBody.validateBody(
-						getConnectionManager().getFilesApi()
-								.hash(path)
-								.execute()
-								.body()).getSha256();
-			} catch (Exception e) {
-				throw new CompletionException(convertException(e));
-			}
-		});
-	}
-
-	@Override
-	public Exception convertException(Exception e) {
+	public convertException(e: Exception): Exception {
 		if (e instanceof HttpFailedException) {
-			HttpFailedException ex = (HttpFailedException) e;
+			let ex = e as HttpFailedException;
 			if (ex.getCode() == 404)
-				return new FileDoesNotExistsException();
+				return new FileDoesNotExistException();
 		}
 		return HttpExceptionHandler.super.convertException(e);
-	} */
+	}
 }

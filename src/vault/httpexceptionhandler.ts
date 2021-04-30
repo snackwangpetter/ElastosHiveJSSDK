@@ -1,3 +1,4 @@
+import { Exception } from "../exception/exception";
 import { HiveResponseBody } from "../network/response/hiveresponsebody";
 
 export abstract class HttpExceptionHandler {
@@ -10,7 +11,7 @@ export abstract class HttpExceptionHandler {
      * @param e exception from http calling.
      * @return expect exception already defined.
      */
-    convertException(e: any /* Java: Exception */) {
+    convertException(e: Exception) {
         return HiveResponseBody.convertException(e);
     }
 }

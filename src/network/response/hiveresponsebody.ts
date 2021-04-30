@@ -1,4 +1,5 @@
 import dayjs from "dayjs";
+import { HiveException } from "../../exception/hiveexception";
 import { HiveSdkException } from "../../exception/hivesdkexception";
 import { HttpFailedException } from "../../exception/httpfailedexception";
 
@@ -161,18 +162,18 @@ export class HiveResponseBody {
             errorMessages = messages;
         }
         return errorMessages;
-    }
+    }*/
 
-    public static Exception convertException(Exception e) {
+    public static convertException(e: Exception): Exception {
         if (e instanceof HttpFailedException) {
-            HttpFailedException ex = (HttpFailedException) e;
-            return getHttpExceptionByCode(ex.getCode(), ex.getMessage());
+            let ex = e as HttpFailedException;
+            return this.getHttpExceptionByCode(ex.getCode(), ex.getMessage());
         } else if (e instanceof IOException)
             return new HiveException(e.getMessage());
         else
             return e;
     }
-
+/*
     public static IOException getHttpExceptionByCode(int code, String message) {
         switch (code) {
             case 401:

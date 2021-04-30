@@ -1,3 +1,6 @@
+import { throws } from "node:assert";
+import { HiveResponseBody } from "../network/response/hiveresponsebody";
+import { VaultInfoResponseBody } from "../network/response/vaultinforesponsebody";
 import { ServiceEndpoint } from "../serviceendpoint";
 import { HiveVaultRender } from "./hivevaultrender";
 
@@ -9,9 +12,9 @@ export class SubscriptionServiceRender extends HiveVaultRender {
         super(serviceEndpoint);
     }
 
-    /* public void subscribe() throws IOException {
-        VaultCreateResponseBody body = HiveResponseBody.validateBody(
-                getConnectionManager().getSubscriptionApi()
+    public subscribe() {
+        let body = HiveResponseBody.validateBody(
+            this.getConnectionManager().getSubscriptionApi()
                         .createVault()
                         .execute()
                         .body());
@@ -20,9 +23,9 @@ export class SubscriptionServiceRender extends HiveVaultRender {
         }
     }
 
-    public void subscribeBackup() throws IOException {
-        VaultCreateResponseBody body = HiveResponseBody.validateBody(
-                getConnectionManager().getSubscriptionApi()
+    public subscribeBackup() {
+        let body = HiveResponseBody.validateBody(
+            this.getConnectionManager().getSubscriptionApi()
                         .createBackupVault()
                         .execute()
                         .body());
@@ -31,43 +34,43 @@ export class SubscriptionServiceRender extends HiveVaultRender {
         }
     }
 
-    public void unsubscribe() throws IOException {
+    public unsubscribe() {
         HiveResponseBody.validateBody(
-                getConnectionManager().getSubscriptionApi()
+            this.getConnectionManager().getSubscriptionApi()
                         .removeVault()
                         .execute()
                         .body());
     }
 
-    public void activate() throws IOException {
+    public activate() {
         HiveResponseBody.validateBody(
-                getConnectionManager().getSubscriptionApi()
+            this.getConnectionManager().getSubscriptionApi()
                         .unfreeze()
                         .execute()
                         .body());
     }
 
-    public void deactivate() throws IOException {
+    public deactivate() {
         HiveResponseBody.validateBody(
-                getConnectionManager().getSubscriptionApi()
+            this.getConnectionManager().getSubscriptionApi()
                         .freeze()
                         .execute()
                         .body());
     }
 
-    public VaultInfoResponseBody getVaultInfo() throws IOException {
+    public  getVaultInfo(): VaultInfoResponseBody {
         return HiveResponseBody.validateBody(
-                getConnectionManager().getSubscriptionApi()
+            this.getConnectionManager().getSubscriptionApi()
                         .getVaultInfo()
                         .execute()
                         .body());
     }
 
-    public VaultInfoResponseBody getBackupVaultInfo() throws IOException {
+    public getBackupVaultInfo(): VaultInfoResponseBody {
         return HiveResponseBody.validateBody(
-                getConnectionManager().getSubscriptionApi()
-                        .getBackupVaultInfo()
-                        .execute()
-                        .body());
-    } */
+            this.getConnectionManager().getSubscriptionApi()
+                    .getBackupVaultInfo()
+                    .execute()
+                    .body());
+    }
 }

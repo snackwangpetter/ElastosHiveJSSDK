@@ -1,0 +1,1 @@
+{"version":3,"file":"paymentcreaterequestbody.js","sourceRoot":"","sources":["../../../src/network/request/paymentcreaterequestbody.ts"],"names":[],"mappings":";;;AAAA,MAAa,wBAAwB;IAMjC,YAAmB,eAAuB,EAAE,cAAsB;QAC9D,IAAI,CAAC,WAAW,GAAG,eAAe,CAAC;QACnC,IAAI,CAAC,UAAU,GAAG,cAAc,CAAC;IACrC,CAAC;CACJ;AAVD,4DAUC"}

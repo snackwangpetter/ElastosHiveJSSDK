@@ -1,3 +1,4 @@
+import { ChannelMessage } from "../network/model/channelmessage";
 import { PubSubService } from "../service/pubsubservice";
 import { Vault } from "../vault ";
 import { HiveVaultRender } from "./hivevaultrender";
@@ -8,43 +9,35 @@ export class PubSubServiceRender extends HiveVaultRender implements PubSubServic
 		super(vault);
 	}
 
-	/* @Override
-	public CompletableFuture<Boolean> publish(String channelName) {
+	public publish(channelName: string): Promise<boolean> {
 		return null;
 	}
 
-	@Override
-	public CompletableFuture<Boolean> remove(String channelName) {
+	public remove(channelName: string): Promise<boolean> {
 		return null;
 	}
 
-	@Override
-	public CompletableFuture<List<String>> getPublishedChannels() {
+	public getPublishedChannels(): Promise<string[]> {
 		return null;
 	}
 
-	@Override
-	public CompletableFuture<List<String>> getSubscribedChannels() {
+	public getSubscribedChannels(): Promise<string[]> {
 		return null;
 	}
 
-	@Override
-	public CompletableFuture<Boolean> subscribe(String channelName, String pubDid, String pubAppId) {
+	public subscribe(channelName: string, pubDid: string, pubAppId: string): Promise<boolean> {
 		return null;
 	}
 
-	@Override
-	public CompletableFuture<Boolean> unsubscribe(String channelName, String pubDid, String pubAppId) {
+	public unsubscribe(channelName: string, pubDid: string, pubAppId: string): Promise<boolean> {
 		return null;
 	}
 
-	@Override
-	public CompletableFuture<Boolean> push(String channelName, String message) {
+	public push(channelName: string, message: string): Promise<boolean> {
 		return null;
 	}
 
-	@Override
-	public CompletableFuture<List<ChannelMessage>> pop(String channelName, String pubDid, String pubAppId, int limit) {
+	public pop(channelName: string, pubDid: string, pubAppId: string, limit: number): Promise<ChannelMessage[]> {
 		return null;
-	} */
+	}
 }

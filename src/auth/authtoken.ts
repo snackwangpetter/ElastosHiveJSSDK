@@ -34,7 +34,7 @@ export class AuthToken {
 		if (AuthToken.TYPE_BACKUP === this.tokenType) {
 			return this.isBackupExpired();
 		}
-		return System.currentTimeMillis() >= (this.expiresTime * 1000);
+		return new Date().getTime() >= (this.expiresTime * 1000);
 	}
 
 	private isBackupExpired(): boolean {

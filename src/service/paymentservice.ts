@@ -18,7 +18,7 @@ export interface PaymentService {
 	 * @param planName the name of the pricing plan
 	 * @return pricing plan
 	 */
-	getPricingPlan(planName: string): Promise<PricingPlan[]>;
+	getPricingPlan(planName: string): Promise<PricingPlan>;
 
 	/**
 	 * Make an order for the pricing plan named with planName.

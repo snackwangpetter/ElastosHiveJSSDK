@@ -1,12 +1,15 @@
 import { AppContext } from "./appcontext";
 import { ConnectionManager } from "./connection/connectionmanager";
+import { CompletionException } from "./exception/unsupportedoperationexception";
+import { HttpExceptionHandler } from "./vault/httpexceptionhandler";
 
-export class ServiceEndpoint {
+export class ServiceEndpoint extends HttpExceptionHandler {
 	private context: AppContext;
 	private providerAddress: string;
 	private connectionManager: ConnectionManager;
 
 	protected constructor(context: AppContext, providerAddress: string) {
+		super();
 		this.context = context;
 		this.providerAddress = providerAddress;
 		this.connectionManager = new ConnectionManager(this);
@@ -43,4 +46,16 @@ export class ServiceEndpoint {
 	public getServiceInstanceDid(): string {
 		return null;
 	}
+
+	// TODO: do we really need those CompletionExceptions inherited from java ?
+    protected promiseWithConvertedException<T>(runnable: ()=>Promise<T>): Promise<T> {
+        return new Promise<T>(async (resolve, reject)=>{
+            try {
+                resolve(await runnable());
+            }
+            catch (e) {
+				throw new CompletionException(this.convertException(e));
+			}
+        });
+    }
 }

@@ -1,17 +1,21 @@
 import { AppContext } from "./appcontext";
-import { CompletionException } from "./exception/illegalargumentexception";
+import { CompletionException, UnsupportedOperationException } from "./exception/illegalargumentexception";
+import { Order } from "./payment/order";
+import { PricingPlan } from "./payment/pricingplan";
+import { Receipt } from "./payment/receipt";
 import { PaymentService } from "./service/paymentservice";
 import { SubscriptionService } from "./service/subscriptionservice";
 import { ServiceEndpoint } from "./serviceendpoint";
+import { HttpExceptionHandler } from "./vault/httpexceptionhandler";
+import { PaymentServiceRender } from "./vault/paymentservicerender";
+import { SubscriptionServiceRender } from "./vault/subscriptionservicerender";
 
 export class VaultSubscription extends ServiceEndpoint implements SubscriptionService<VaultSubscription.VaultInfo>, PaymentService, HttpExceptionHandler {
-	private context: AppContext;
 	private subscriptionService: SubscriptionServiceRender;
 	private paymentService: PaymentServiceRender;
 
 	public constructor(context: AppContext, providerAddress: string) {
 		super(context, providerAddress);
-		this.context = context;
 		this.paymentService = new PaymentServiceRender(this);
 		this.subscriptionService = new SubscriptionServiceRender(this);
 	}
@@ -29,102 +33,66 @@ export class VaultSubscription extends ServiceEndpoint implements SubscriptionSe
 	}
 
 	public unsubscribe(): Promise<void> {
-		return CompletableFuture.runAsync(() -> {
-			try {
-				this.subscriptionService.unsubscribe();
-			} catch (Exception e) {
-				throw new CompletionException(convertException(e));
-			}
+		return this.promiseWithConvertedException<void>(async ()=>{
+			this.subscriptionService.unsubscribe();
 		});
 	}
 
 	public activate(): Promise<void> {
-		return CompletableFuture.runAsync(() -> {
-			try {
-				this.subscriptionService.activate();
-			} catch (Exception e) {
-				throw new CompletionException(convertException(e));
-			}
+		return this.promiseWithConvertedException<void>(async ()=>{
+			this.subscriptionService.activate();
 		});
 	}
 
 	public deactivate(): Promise<void> {
-		return CompletableFuture.runAsync(() -> {
-			try {
-				this.subscriptionService.deactivate();
-			} catch (Exception e) {
-				throw new CompletionException(convertException(e));
-			}
+		return this.promiseWithConvertedException<void>(async ()=>{
+			this.subscriptionService.deactivate();
 		});
 	}
 
-	public checkSubscription(): Promise<VaultInfo> {
-		return CompletableFuture.supplyAsync(() -> {
-			try {
-				VaultInfoResponseBody body = this.subscriptionService.getVaultInfo();
-				return new VaultInfo(this.getUserDid(), null, body.getDid())
-						.setProvider(this.getProviderAddress())
-						.setCreateTime(body.getStartTimeStr())
-						.setModifyTime(body.getModifyTimeStr())
-						.setMaxSpace(body.getMaxStorage())
-						.setDbSpaceUsed(body.getDbUseStorage())
-						.setFileSpaceUsed(body.getFileUseStorage())
-						.setExisting(body.isExisting());
-			} catch (Exception e) {
-				throw new CompletionException(convertException(e));
-			}
+	public checkSubscription(): Promise<VaultSubscription.VaultInfo> {
+		return this.promiseWithConvertedException<VaultSubscription.VaultInfo>(async ()=>{
+			let body = this.subscriptionService.getVaultInfo();
+			return new VaultSubscription.VaultInfo(this.getUserDid(), null, body.getDid())
+					.setProvider(this.getProviderAddress())
+					.setCreateTime(body.getStartTimeStr())
+					.setModifyTime(body.getModifyTimeStr())
+					.setMaxSpace(body.getMaxStorage())
+					.setDbSpaceUsed(body.getDbUseStorage())
+					.setFileSpaceUsed(body.getFileUseStorage())
+					.setExisting(body.isExisting());
 		});
 	}
 
 	public getPricingPlanList(): Promise<PricingPlan[]> {
-		return CompletableFuture.supplyAsync(()-> {
-			try {
-				return paymentService.getPricingPlanList();
-			} catch (Exception e) {
-				throw new CompletionException(convertException(e));
-			}
+		return this.promiseWithConvertedException<PricingPlan[]>(async ()=>{
+			return this.paymentService.getPricingPlanList();
 		});
 	}
 
 	public getPricingPlan(planName: string): Promise<PricingPlan> {
-		return CompletableFuture.supplyAsync(()-> {
-			try {
-				return paymentService.getPricingPlan(planName);
-			} catch (Exception e) {
-				throw new CompletionException(convertException(e));
-			}
+		return this.promiseWithConvertedException<PricingPlan>(async ()=>{
+			return this.paymentService.getPricingPlan(planName);
 		});
 	}
 
 	public placeOrder(planName: string): Promise<Order> {
-		return CompletableFuture.supplyAsync(()-> {
-			try {
-				return paymentService.getOrderInfo(paymentService.createPricingOrder(planName));
-			} catch (e) {
-				throw new CompletionException(convertException(e));
-			}
+		return this.promiseWithConvertedException<Order>(async ()=>{
+			return this.paymentService.getOrderInfo(this.paymentService.createPricingOrder(planName));
 		});
 	}
 
 	public getOrder(orderId: string): Promise<Order> {
-		return CompletableFuture.supplyAsync(()-> {
-			try {
-				return paymentService.getOrderInfo(orderId);
-			} catch (e) {
-				throw new CompletionException(convertException(e));
-			}
+		return this.promiseWithConvertedException<Order>(async ()=>{
+			return this.paymentService.getOrderInfo(orderId);
 		});
 	}
 
 	public payOrder(orderId: string, transIds: string[]): Promise<Receipt> {
-		return CompletableFuture.supplyAsync(()-> {
-			try {
-				paymentService.payOrder(orderId, transIds);
-				//TODO:
-				return new Receipt();
-			} catch (Exception e) {
-				throw new CompletionException(convertException(e));
-			}
+		return this.promiseWithConvertedException<Receipt>(async ()=>{
+			this.paymentService.payOrder(orderId, transIds);
+			//TODO:
+			return new Receipt();
 		});
 	}
 

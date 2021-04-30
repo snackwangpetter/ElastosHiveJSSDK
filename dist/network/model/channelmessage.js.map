@@ -1,0 +1,1 @@
+{"version":3,"file":"channelmessage.js","sourceRoot":"","sources":["../../../src/network/model/channelmessage.ts"],"names":[],"mappings":";;;AAAA,MAAa,cAAc;IAIhB,OAAO;QACV,OAAO,IAAI,CAAC,IAAI,CAAC;IACrB,CAAC;IAEM,OAAO,CAAC,IAAY;QACvB,IAAI,CAAC,IAAI,GAAG,IAAI,CAAC;QACjB,OAAO,IAAI,CAAC;IAChB,CAAC;CACJ;AAZD,wCAYC"}

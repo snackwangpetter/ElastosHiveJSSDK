@@ -36,17 +36,12 @@ export class BackupServiceRender extends HiveVaultRender implements BackupServic
     }
 
     public startBackup(): Promise<void> {
-        return new Promise((resolve, reject)=>{
-            try {
-                HiveResponseBody.validateBody(
-                        this.getConnectionManager().getBackupApi()
-                                .saveToNode(new BackupSaveRequestBody(this.tokenResolver.getToken().getAccessToken()))
-                                .execute()
-                                .body());
-                resolve();
-            } catch (e) {
-                reject(new CompletionException(this.convertException(e)));
-            }
+        return this.promiseWithConvertedException<void>(()=>{
+            HiveResponseBody.validateBody(
+                    this.getConnectionManager().getBackupApi()
+                            .saveToNode(new BackupSaveRequestBody(this.tokenResolver.getToken().getAccessToken()))
+                            .execute()
+                            .body());
         });
     }
 
@@ -55,18 +50,13 @@ export class BackupServiceRender extends HiveVaultRender implements BackupServic
     }
 
     public restoreFrom(): Promise<void> {
-        return new Promise((resolve, reject)=>{
-            try {
-                HiveResponseBody.validateBody(
-                        this.getConnectionManager().getBackupApi()
-                                .restoreFromNode(new BackupRestoreRequestBody(
-                                        this.tokenResolver.getToken().getAccessToken()))
-                                .execute()
-                                .body());
-                resolve();
-            } catch (e) {
-                reject(new CompletionException(this.convertException(e)));
-            }
+        return this.promiseWithConvertedException<void>(()=>{
+            HiveResponseBody.validateBody(
+                    this.getConnectionManager().getBackupApi()
+                            .restoreFromNode(new BackupRestoreRequestBody(
+                                    this.tokenResolver.getToken().getAccessToken()))
+                            .execute()
+                            .body());
         });
     }
 
@@ -75,16 +65,12 @@ export class BackupServiceRender extends HiveVaultRender implements BackupServic
     }
 
     public checkResult(): Promise<BackupResult> {
-        return new Promise((resolve, reject)=>{
-            try {
-                resolve(HiveResponseBody.validateBody(
-                        this.getConnectionManager().getBackupApi()
-                                .getState()
-                                .execute()
-                                .body()).getStatusResult());
-            } catch (e) {
-                reject(new CompletionException(this.convertException(e)));
-            }
+        return this.promiseWithConvertedException<BackupResult>(()=>{
+            return HiveResponseBody.validateBody(
+                    this.getConnectionManager().getBackupApi()
+                            .getState()
+                            .execute()
+                            .body()).getStatusResult();
         });
-    } 
+    }
 }

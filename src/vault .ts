@@ -1,12 +1,14 @@
 import { AppContext } from "./appcontext";
-import { ServiceBuilder } from "./backup/servicebuilder";
-import { CompletionException } from "./exception/illegalargumentexception";
+import { ServiceBuilder } from "./vault/servicebuilder";
 import { BackupService } from "./service/backupservice";
 import { DatabaseService } from "./service/databaseservice";
 import { FilesService } from "./service/filesservice";
 import { PubSubService } from "./service/pubsubservice";
 import { ScriptingService } from "./service/scriptingservice";
 import { ServiceEndpoint } from "./serviceendpoint";
+import { HttpExceptionHandler } from "./vault/httpexceptionhandler";
+import { NodeManageServiceRender } from "./vault/nodemanageservicerender";
+import { CompletionException } from "./exception/unsupportedoperationexception";
 
 /**
  * This class explicitly represents the vault service subscribed by "userDid".
@@ -55,7 +57,7 @@ export class Vault extends ServiceEndpoint implements HttpExceptionHandler {
 			try {
 				resolve(this.nodeManageService.getVersion());
 			} catch (e) {
-				reject(new CompletionException(convertException(e)));
+				reject(new CompletionException(this.convertException(e)));
 			}
 		});
 	}
@@ -65,7 +67,7 @@ export class Vault extends ServiceEndpoint implements HttpExceptionHandler {
 			try {
 				resolve(this.nodeManageService.getCommitHash());
 			} catch (e) {
-				reject(new CompletionException(convertException(e)));
+				reject(new CompletionException(this.convertException(e)));
 			}
 		});
 	}

@@ -1,3 +1,10 @@
+import { throws } from "node:assert";
+import { PaymentCreateRequestBody } from "../network/request/paymentcreaterequestbody";
+import { PayOrderRequestBody } from "../network/request/payorderrequestbody";
+import { HiveResponseBody } from "../network/response/hiveresponsebody";
+import { PaymentPlanResponseBody } from "../network/response/paymentplanresponsebody";
+import { Order } from "../payment/order";
+import { PricingPlan } from "../payment/pricingplan";
 import { ServiceEndpoint } from "../serviceendpoint";
 import { HiveVaultRender } from "./hivevaultrender";
 
@@ -9,39 +16,39 @@ export class PaymentServiceRender extends HiveVaultRender {
         super(serviceEndpoint);
     }
 
-    /* public List<PricingPlan> getPricingPlanList() throws IOException {
+    public getPricingPlanList(): Promise<PricingPlan[]> {
         return HiveResponseBody.validateBody(
-                getConnectionManager().getPaymentApi()
+                this.getConnectionManager().getPaymentApi()
                         .getPackageInfo()
                         .execute()
                         .body()).getPricingPlans();
     }
 
-    public List<PricingPlan> getBackupPlanList() throws IOException {
+    public getBackupPlanList(): Promise<PricingPlan[]> {
         return HiveResponseBody.validateBody(
-                getConnectionManager().getPaymentApi()
+                this.getConnectionManager().getPaymentApi()
                         .getPackageInfo()
                         .execute()
                         .body()).getBackupPlans();
     }
 
-    public PricingPlan getPricingPlan(String planName) throws IOException {
-        return getPricePlanByResponseBody(HiveResponseBody.validateBody(
-                getConnectionManager().getPaymentApi()
+    public async getPricingPlan(planName: string): Promise<PricingPlan> {
+        return this.getPricePlanByResponseBody(HiveResponseBody.validateBody(
+                this.getConnectionManager().getPaymentApi()
                         .getPricingPlan(planName)
                         .execute()
                         .body()));
     }
 
-    public PricingPlan getBackupPlan(String planName) throws IOException {
-        return getPricePlanByResponseBody(HiveResponseBody.validateBody(
-                getConnectionManager().getPaymentApi()
+    public async getBackupPlan(planName: string): Promise<PricingPlan> {
+        return this.getPricePlanByResponseBody(HiveResponseBody.validateBody(
+                this.getConnectionManager().getPaymentApi()
                         .getBackupPlan(planName)
                         .execute()
                         .body()));
     }
 
-    private PricingPlan getPricePlanByResponseBody(PaymentPlanResponseBody respBody) {
+    private getPricePlanByResponseBody(respBody: PaymentPlanResponseBody): PricingPlan {
         return new PricingPlan().setAmount(respBody.getAmount())
                 .setCurrency(respBody.getCurrency())
                 .setServiceDays(respBody.getServiceDays())
@@ -49,25 +56,25 @@ export class PaymentServiceRender extends HiveVaultRender {
                 .setName(respBody.getName());
     }
 
-    public String createPricingOrder(String planName) throws IOException {
-        return createOrder(planName, null);
+    public createPricingOrder(planName: string): string {
+        return this.createOrder(planName, null);
     }
 
-    public String createBackupOrder(String planName) throws IOException {
-        return createOrder(null, planName);
+    public createBackupOrder(String planName): string {
+        return this.createOrder(null, planName);
     }
 
-    private String createOrder(String pricingPlanName, String backupPlanName) throws IOException {
+    private createOrder(pricingPlanName: string, backupPlanName: string): string {
         return HiveResponseBody.validateBody(
-                getConnectionManager().getPaymentApi()
+                this.getConnectionManager().getPaymentApi()
                         .createOrder(new PaymentCreateRequestBody(pricingPlanName, backupPlanName))
                         .execute()
                         .body()).getOrderId();
     }
 
-    public void payOrder(String orderId, List<String> transIds) throws IOException {
+    public payOrder(orderId: string, transIds: string[]) {
         HiveResponseBody.validateBody(
-                getConnectionManager().getPaymentApi()
+                this.getConnectionManager().getPaymentApi()
                         .payOrder(new PayOrderRequestBody()
                                 .setOrderId(orderId)
                                 .setPayTxids(transIds))
@@ -75,11 +82,11 @@ export class PaymentServiceRender extends HiveVaultRender {
                         .body());
     }
 
-    public Order getOrderInfo(String orderId) throws IOException {
+    public async getOrderInfo(orderId: string): Promise<Order> {
         return HiveResponseBody.validateBody(
-                getConnectionManager().getPaymentApi()
+                this.getConnectionManager().getPaymentApi()
                         .getOrderInfo(orderId)
                         .execute()
                         .body()).getOrderInfo();
-    } */
+    }
 }

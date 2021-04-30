@@ -1,0 +1,1 @@
+{"version":3,"file":"hivebackupcontext.js","sourceRoot":"","sources":["../../src/service/hivebackupcontext.ts"],"names":[],"mappings":";;;AAEA,MAAsB,iBAAiB;IAC/B,YAAY,CAAC,SAAiB;QACpC,QAAQ,SAAS,EAAE;YACnB,KAAK,eAAe;gBACnB,OAAO,IAAI,CAAC,wBAAwB,EAAE,CAAC;YAExC,KAAK,kBAAkB;gBACtB,OAAO,IAAI,CAAC,mBAAmB,EAAE,CAAC;SAClC;QACD,OAAO,IAAI,CAAC;IACb,CAAC;CAMD;AAhBD,8CAgBC"}

@@ -1,5 +1,11 @@
 import { AppContextProvider } from "./appcontextprovider";
+import { BadContextProviderException } from "./exception/badcontextproviderexception";
 import { IllegalArgumentException } from "./exception/completionexception";
+import { DIDResolverNotSetupException } from "./exception/didresolvernotsetupexception";
+import { DIDResolverSetupException } from "./exception/didresolversetupexception";
+import { IllegalDidFormatException } from "./exception/illegaldidformatexception";
+import { ProviderNotFoundException } from "./exception/providernotfoundexception";
+import { ProviderNotSetException } from "./exception/providernotsetexception";
 
 /**
  * The application context would contain the resources list below:
@@ -89,14 +95,14 @@ export class AppContext {
 				 */
 				return services.get(0).getServiceEndpoint();
 			} catch (e) {
-				// MalformedDIDException
-				throw new IllegalDidFormatException("Bad target did: " + targetDid);
-
-			} catch (e) {
-				// DIDResolveException
-				// throw new CompletionException(new HiveException(e.getLocalizedMessage()));
-				// TODO:
-				return null;
+				if (e instanceof MalformedDIDException)
+					throw new IllegalDidFormatException("Bad target did: " + targetDid);
+				else {
+					// DIDResolveException
+					// throw new CompletionException(new HiveException(e.getLocalizedMessage()));
+					// TODO:
+					return null;
+				}
 			}
 		});
 	}

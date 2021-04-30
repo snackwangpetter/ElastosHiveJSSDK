@@ -1,0 +1,1 @@
+{"version":3,"file":"insertdocrequestbody.js","sourceRoot":"","sources":["../../../src/network/request/insertdocrequestbody.ts"],"names":[],"mappings":";;;AAEA,+EAA4E;AAE5E,MAAa,oBAAqB,SAAQ,yDAA2B;IAIjE,YAAmB,IAAY,EAAE,QAAsB,EAAE,OAAyB;QAC9E,KAAK,CAAC,IAAI,CAAC,CAAC;QACZ,IAAI,CAAC,QAAQ,GAAG,QAAQ,CAAC;QACzB,IAAI,CAAC,OAAO,GAAG,OAAO,CAAC;IAC3B,CAAC;CACJ;AATD,oDASC"}

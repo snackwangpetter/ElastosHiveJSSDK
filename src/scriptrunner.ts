@@ -2,6 +2,7 @@ import { AppContext } from "./appcontext";
 import { Class } from "./class";
 import { JSONObject } from "./json";
 import { ServiceEndpoint } from "./serviceendpoint";
+import { ScriptingServiceRender } from "./vault/scriptingservicerender";
 
 export class ScriptRunner extends ServiceEndpoint {
 	private scriptingServiceRender: ScriptingServiceRender;
