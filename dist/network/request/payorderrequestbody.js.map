@@ -1,1 +1,0 @@
-{"version":3,"file":"payorderrequestbody.js","sourceRoot":"","sources":["../../../src/network/request/payorderrequestbody.ts"],"names":[],"mappings":";;;AAAA,MAAa,mBAAmB;IAMrB,UAAU,CAAC,OAAe;QAC7B,IAAI,CAAC,OAAO,GAAG,OAAO,CAAC;QACvB,OAAO,IAAI,CAAC;IAChB,CAAC;IAEM,WAAW,CAAC,QAAkB;QACjC,IAAI,CAAC,QAAQ,GAAG,QAAQ,CAAC;QACzB,OAAO,IAAI,CAAC;IAChB,CAAC;CACJ;AAfD,kDAeC"}

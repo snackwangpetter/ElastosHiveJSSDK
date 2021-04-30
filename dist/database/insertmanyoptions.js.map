@@ -1,1 +1,0 @@
-{"version":3,"file":"insertmanyoptions.js","sourceRoot":"","sources":["../../src/database/insertmanyoptions.ts"],"names":[],"mappings":";;;AAAA,yDAAsD;AAEtD,MAAa,iBAAkB,SAAQ,mCAAgB;IAGtD,YAAmB,wBAAiC,EAAE,OAAgB;QACrE,KAAK,CAAC,wBAAwB,CAAC,CAAC;QAChC,IAAI,CAAC,OAAO,GAAG,OAAO,CAAC;IACxB,CAAC;CACD;AAPD,8CAOC"}

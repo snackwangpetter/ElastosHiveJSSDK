@@ -1,1 +1,0 @@
-{"version":3,"file":"scriptcontext.js","sourceRoot":"","sources":["../../../src/network/model/scriptcontext.ts"],"names":[],"mappings":";;;AAAA,MAAa,aAAa;IAMf,YAAY,CAAC,SAAiB;QACjC,IAAI,CAAC,SAAS,GAAG,SAAS,CAAC;QAC3B,OAAO,IAAI,CAAC;IAChB,CAAC;IAEM,eAAe,CAAC,YAAoB;QACvC,IAAI,CAAC,YAAY,GAAG,YAAY,CAAC;QACjC,OAAO,IAAI,CAAC;IAChB,CAAC;CACJ;AAfD,sCAeC"}

@@ -1,1 +1,0 @@
-{"version":3,"file":"pubsubsubscriberequestbody.js","sourceRoot":"","sources":["../../../src/network/request/pubsubsubscriberequestbody.ts"],"names":[],"mappings":";;;AAAA,2DAAwD;AAExD,MAAa,0BAA2B,SAAQ,qCAAiB;IAM7D,YAAmB,WAAmB,EAAE,MAAc,EAAE,QAAgB;QACpE,KAAK,CAAC,WAAW,CAAC,CAAC;QACnB,IAAI,CAAC,MAAM,GAAG,MAAM,CAAC;QACrB,IAAI,CAAC,QAAQ,GAAG,QAAQ,CAAC;IAC7B,CAAC;CACJ;AAXD,gEAWC"}
