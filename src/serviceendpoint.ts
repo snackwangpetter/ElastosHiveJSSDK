@@ -1,6 +1,6 @@
 import { AppContext } from "./appcontext";
 import { ConnectionManager } from "./connection/connectionmanager";
-import { CompletionException } from "./exception/unsupportedoperationexception";
+import { CompletionException } from "./exception/completionexception";
 import { HttpExceptionHandler } from "./vault/httpexceptionhandler";
 
 export class ServiceEndpoint extends HttpExceptionHandler {

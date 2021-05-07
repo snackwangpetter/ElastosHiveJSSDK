@@ -1,3 +1,5 @@
+import { DateUtil } from "../../utils/dateutil";
+
 /**
  * The class to represent the information of File or Folder.
  */
@@ -40,7 +42,8 @@ export class FileInfo {
 	}
 
 	public getLastModified(): string {
-		long timeStamp = BigDecimal.valueOf(lastModify).multiply(new BigDecimal(1000)).longValue();
+		let timeStamp = this.lastModify * 1000;
+		// TODO! getCurrentEpochTimeStamp() seems to use a timestamp in SEC, not in MS... need to compare with java
 		return DateUtil.getCurrentEpochTimeStamp(timeStamp);
 	}
 }

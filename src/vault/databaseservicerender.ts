@@ -9,7 +9,6 @@ import { InsertOneOptions } from "../database/insertoneoptions";
 import { InsertOneResult } from "../database/insertoneresult";
 import { UpdateOptions } from "../database/updateoptions";
 import { UpdateResult } from "../database/updateresult";
-import { CompletionException } from "../exception/unsupportedoperationexception";
 import { JSONObject } from "../json";
 import { CountDocRequestBody } from "../network/request/countdocrequestbody";
 import { CreateCollectionRequestBody } from "../network/request/createcollectionrequestbody";
@@ -22,7 +21,7 @@ import { InsertDocsRequestBody } from "../network/request/insertdocsrequestbody"
 import { UpdateDocRequestBody } from "../network/request/updatedocrequestbody";
 import { HiveResponseBody } from "../network/response/hiveresponsebody";
 import { DatabaseService } from "../service/databaseservice";
-import { Vault } from "../vault ";
+import { Vault } from "../vault";
 import { HiveVaultRender } from "./hivevaultrender";
 import { HttpExceptionHandler } from "./httpexceptionhandler";
 
@@ -97,41 +96,41 @@ export class DatabaseServiceRender extends HiveVaultRender implements DatabaseSe
 	}
 
 	public findOne(collection: string, query: JSONObject, options: FindOptions): Promise<JSONObject> {
-		return this.promiseWithConvertedException<JSONObject>(()=>{
+		return this.promiseWithConvertedException<JSONObject>(async ()=>{
 			return HiveResponseBody.KeyValueDict2JsonNode(
 					HiveResponseBody.validateBody(
-							this.getConnectionManager().getDatabaseApi()
+							await this.getConnectionManager().getDatabaseApi()
 									.findOne(new FindDocRequestBody(collection,
 											HiveResponseBody.jsonNode2KeyValueDic(query),
 											options))
-									.execute()
-									.body()).getItem());
+									/* .execute()
+									.body() */).getItem());
 		});
 	}
 
 	public findMany(collection: string, query: JSONObject, options: FindOptions): Promise<JSONObject[]> {
-		return this.promiseWithConvertedException<JSONObject[]>(()=>{
+		return this.promiseWithConvertedException<JSONObject[]>(async ()=>{
 			return HiveResponseBody.KeyValueDictList2JsonNodeList(
 					HiveResponseBody.validateBody(
-						this.getConnectionManager().getDatabaseApi()
+						await this.getConnectionManager().getDatabaseApi()
 					.findMany(new FindDocsRequestBody(collection,
 							HiveResponseBody.jsonNode2KeyValueDic(query),
 							options))
-					.execute()
-					.body()).getItems());
+					/* .execute()
+					.body() */).getItems());
 		});
 	}
 
 	public updateOne(collection: string, filter: JSONObject, update: JSONObject, options: UpdateOptions): Promise<UpdateResult> {
-		return this.promiseWithConvertedException<UpdateResult>(()=>{
+		return this.promiseWithConvertedException<UpdateResult>(async ()=>{
 			let body = HiveResponseBody.validateBody(
-							this.getConnectionManager().getDatabaseApi()
+							await this.getConnectionManager().getDatabaseApi()
 									.updateOne(new UpdateDocRequestBody(collection)
 										.setFilter(HiveResponseBody.jsonNode2KeyValueDic(filter))
 										.setUpdate(HiveResponseBody.jsonNode2KeyValueDic(update))
 									.setOptions(options))
-									.execute()
-									.body());
+									/* .execute()
+									.body() */);
 			return new UpdateResult()
 					.setMatchedCount(body.getMatchedCount())
 					.setModifiedCount(body.getModifiedCount())
@@ -141,15 +140,15 @@ export class DatabaseServiceRender extends HiveVaultRender implements DatabaseSe
 	}
 
 	public updateMany(collection: string, filter: JSONObject, update: JSONObject, options: UpdateOptions): Promise<UpdateResult> {
-		return this.promiseWithConvertedException<UpdateResult>(()=>{
+		return this.promiseWithConvertedException<UpdateResult>(async ()=>{
 			let body = HiveResponseBody.validateBody(
-					this.getConnectionManager().getDatabaseApi()
+					await this.getConnectionManager().getDatabaseApi()
 							.updateMany(new UpdateDocRequestBody(collection)
 									.setFilter(HiveResponseBody.jsonNode2KeyValueDic(filter))
 									.setUpdate(HiveResponseBody.jsonNode2KeyValueDic(update))
 									.setOptions(options))
-							.execute()
-							.body());
+							/* .execute()
+							.body() */);
 			return new UpdateResult()
 					.setMatchedCount(body.getMatchedCount())
 					.setModifiedCount(body.getModifiedCount())
@@ -159,13 +158,13 @@ export class DatabaseServiceRender extends HiveVaultRender implements DatabaseSe
 	}
 
 	public deleteOne(collection: string, filter: JSONObject, options: DeleteOptions): Promise<DeleteResult> {
-		return this.promiseWithConvertedException<DeleteResult>(()=>{
+		return this.promiseWithConvertedException<DeleteResult>(async ()=>{
 			let body = HiveResponseBody.validateBody(
-					this.getConnectionManager().getDatabaseApi()
+					await this.getConnectionManager().getDatabaseApi()
 					.deleteOne(new DeleteDocRequestBody(collection,
 							HiveResponseBody.jsonNode2KeyValueDic(filter)))
-					.execute()
-					.body());
+					/* .execute()
+					.body() */);
 			return new DeleteResult()
 					.setDeletedCount(body.getDeletedCount())
 					.setAcknowledged(body.getAcknowledged());
@@ -173,13 +172,13 @@ export class DatabaseServiceRender extends HiveVaultRender implements DatabaseSe
 	}
 
 	public deleteMany(collection: string, filter: JSONObject, options: DeleteOptions): Promise<DeleteResult> {
-		return this.promiseWithConvertedException<DeleteResult>(()=>{
+		return this.promiseWithConvertedException<DeleteResult>(async ()=>{
 			let body = HiveResponseBody.validateBody(
-					this.getConnectionManager().getDatabaseApi()
+					await this.getConnectionManager().getDatabaseApi()
 							.deleteMany(new DeleteDocRequestBody(collection,
 									HiveResponseBody.jsonNode2KeyValueDic(filter)))
-							.execute()
-							.body());
+							/* .execute()
+							.body() */);
 			return new DeleteResult()
 					.setDeletedCount(body.getDeletedCount())
 					.setAcknowledged(body.getAcknowledged());

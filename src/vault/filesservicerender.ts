@@ -1,6 +1,7 @@
 import { stat } from "node:fs";
 import path from "node:path";
 import { Class } from "../class";
+import { Exception } from "../exception/exception";
 import { FileDoesNotExistException } from "../exception/filedoesnotexistexception";
 import { HttpFailedException } from "../exception/httpfailedexception";
 import { CompletionException } from "../exception/unsupportedoperationexception";
@@ -11,7 +12,7 @@ import { FilesDeleteRequestBody } from "../network/request/filesdeleterequestbod
 import { FilesMoveRequestBody } from "../network/request/filesmoverequestbody";
 import { HiveResponseBody } from "../network/response/hiveresponsebody";
 import { FilesService } from "../service/filesservice";
-import { Vault } from "../vault ";
+import { Vault } from "../vault";
 import { HiveVaultRender } from "./hivevaultrender";
 import { HttpExceptionHandler } from "./httpexceptionhandler";
 
@@ -29,69 +30,69 @@ export class FilesServiceRender extends HiveVaultRender implements FilesService,
 	}
 
 	public list(path: string): Promise<FileInfo[]> {
-		return this.promiseWithConvertedException<FileInfo[]>(()=>{
+		return this.promiseWithConvertedException<FileInfo[]>(async ()=>{
 			return HiveResponseBody.validateBody(
-				this.getConnectionManager().getFilesApi()
+				await this.getConnectionManager().getFilesApi()
 						.list(path)
-						.execute()
-						.body()).getFileInfoList();
+						/* .execute()
+						.body() */).getFileInfoList();
 		});
 	}
 
 	public stat(path: string): Promise<FileInfo> {
-		return this.promiseWithConvertedException<FileInfo>(()=>{
+		return this.promiseWithConvertedException<FileInfo>(async ()=>{
 			return HiveResponseBody.validateBody(
-				this.getConnectionManager().getFilesApi()
+				await this.getConnectionManager().getFilesApi()
 						.properties(path)
-						.execute().body()).getFileInfo();
+						/* .execute().body() */).getFileInfo();
 		});
 	}
 
 	public download<T>(path: string, resultType: Class<T> ): Promise<T> {
-		return this.promiseWithConvertedException<T>(()=>{
+		return this.promiseWithConvertedException<T>(async ()=>{
 			return HiveResponseBody.getResponseStream(
-				this.getConnectionManager().getFilesApi()
+				await this.getConnectionManager().getFilesApi()
 						.download(path)
-						.execute(), resultType);
+						/* .execute() */, resultType);
 		});
 	}
 
 	public delete(path: string): Promise<boolean> {
-		return this.promiseWithConvertedException<boolean>(()=>{
-			HiveResponseBody.validateBody(this.getConnectionManager().getFilesApi()
+		return this.promiseWithConvertedException<boolean>(async ()=>{
+			HiveResponseBody.validateBody(await this.getConnectionManager().getFilesApi()
 				.delete(new FilesDeleteRequestBody(path))
-				.execute().body());
+				/* .execute() .body()*/);
 			return true;
 		});
 	}
 
 	public move(source: string, target: string): Promise<boolean> {
-		return this.promiseWithConvertedException<boolean>(()=>{
+		return this.promiseWithConvertedException<boolean>(async ()=>{
 			HiveResponseBody.validateBody(
-				this.getConnectionManager().getFilesApi()
+				await this.getConnectionManager().getFilesApi()
 						.move(new FilesMoveRequestBody(source, target))
-						.execute().body());
+						/* .execute().body() */);
 			return true;
 		});
 	}
 
 	public copy(source: string, target: string): Promise<boolean> {
-		return this.promiseWithConvertedException<boolean>(()=>{
+		return this.promiseWithConvertedException<boolean>(async ()=>{
 			HiveResponseBody.validateBody(
-				this.getConnectionManager().getFilesApi()
+				await this.getConnectionManager().getFilesApi()
 				.copy(new FilesCopyRequestBody(source, target))
-				.execute().body());
+				/* .execute().body() */);
 			return true;
 		});
 	}
 
 	public hash(path: string): Promise<string> {
-		return this.promiseWithConvertedException<string>(()=>{
+		return this.promiseWithConvertedException<string>(async ()=>{
 			return HiveResponseBody.validateBody(
-				this.getConnectionManager().getFilesApi()
+				await this.getConnectionManager().getFilesApi()
 						.hash(path)
-						.execute()
-						.body()).getSha256();
+						/* .execute()
+						.body() */).getSha256();
 		});
 	}
 
@@ -101,6 +102,6 @@ export class FilesServiceRender extends HiveVaultRender implements FilesService,
 			if (ex.getCode() == 404)
 				return new FileDoesNotExistException();
 		}
-		return HttpExceptionHandler.super.convertException(e);
+		return super.convertException(e);
 	}
 }

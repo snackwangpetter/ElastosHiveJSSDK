@@ -1,6 +1,5 @@
 import { Class } from "../class";
 import { InvalidParameterException } from "../exception/invalidparameterexception";
-import { CompletionException } from "../exception/unsupportedoperationexception";
 import { JSONObject } from "../json";
 import { Condition } from "../network/model/condition";
 import { Executable } from "../network/model/executable";
@@ -20,15 +19,15 @@ export class ScriptingServiceRender extends HiveVaultRender implements Scripting
 	}
 
 	public registerScript(name: string, executable: Executable, condition: Condition = null, allowAnonymousUser: boolean = false, allowAnonymousApp: boolean = false): Promise<boolean> {
-		return this.promiseWithConvertedException<boolean>(()=>{
+		return this.promiseWithConvertedException<boolean>(async ()=>{
 			HiveResponseBody.validateBody(
-					this.getConnectionManager().getScriptingApi()
+					await this.getConnectionManager().getScriptingApi()
 							.registerScript(new RegisterScriptRequestBody().setName(name)
 									.setExecutable(executable)
 									.setAllowAnonymousUser(allowAnonymousUser)
 									.setAllowAnonymousApp(allowAnonymousApp)
 									.setCondition(condition))
-							.execute().body());
+							/* .execute().body() */);
 			return true;
 		});
 	}
@@ -43,7 +42,7 @@ export class ScriptingServiceRender extends HiveVaultRender implements Scripting
 											.setTargetDid(targetDid)
 											.setTargetAppDid(targetAppDid))
 									.setParams(HiveResponseBody.jsonNode2Map(params)))
-							.execute()
+							/* .execute() */
 			), resultType);
 		});
 	}
@@ -53,7 +52,7 @@ export class ScriptingServiceRender extends HiveVaultRender implements Scripting
 			return HiveResponseBody.getValue(HiveResponseBody.validateBodyStr(
 					this.getConnectionManager().getScriptingApi()
 							.callScriptUrl(targetDid, targetAppDid, name, params)
-							.execute()
+							/* .execute() */
 			), resultType);
 		});
 	}
@@ -77,7 +76,7 @@ export class ScriptingServiceRender extends HiveVaultRender implements Scripting
 			return HiveResponseBody.getResponseStream(
 					this.getConnectionManager().getScriptingApi()
 							.callDownload(transactionId)
-							.execute(),
+							/* .execute() */,
 					resultType);
 		});
 	}

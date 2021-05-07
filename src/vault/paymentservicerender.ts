@@ -16,36 +16,36 @@ export class PaymentServiceRender extends HiveVaultRender {
         super(serviceEndpoint);
     }
 
-    public getPricingPlanList(): Promise<PricingPlan[]> {
+    public async getPricingPlanList(): Promise<PricingPlan[]> {
         return HiveResponseBody.validateBody(
-                this.getConnectionManager().getPaymentApi()
+                await this.getConnectionManager().getPaymentApi()
                         .getPackageInfo()
-                        .execute()
-                        .body()).getPricingPlans();
+                        /* .execute()
+                        .body() */).getPricingPlans();
     }
 
-    public getBackupPlanList(): Promise<PricingPlan[]> {
+    public async getBackupPlanList(): Promise<PricingPlan[]> {
         return HiveResponseBody.validateBody(
-                this.getConnectionManager().getPaymentApi()
+                await this.getConnectionManager().getPaymentApi()
                         .getPackageInfo()
-                        .execute()
-                        .body()).getBackupPlans();
+                        /* .execute()
+                        .body() */).getBackupPlans();
     }
 
     public async getPricingPlan(planName: string): Promise<PricingPlan> {
         return this.getPricePlanByResponseBody(HiveResponseBody.validateBody(
-                this.getConnectionManager().getPaymentApi()
+                await this.getConnectionManager().getPaymentApi()
                         .getPricingPlan(planName)
-                        .execute()
-                        .body()));
+                        /* .execute()
+                        .body() */));
     }
 
     public async getBackupPlan(planName: string): Promise<PricingPlan> {
         return this.getPricePlanByResponseBody(HiveResponseBody.validateBody(
-                this.getConnectionManager().getPaymentApi()
+                await this.getConnectionManager().getPaymentApi()
                         .getBackupPlan(planName)
-                        .execute()
-                        .body()));
+                        /* .execute()
+                        .body() */));
     }
 
     private getPricePlanByResponseBody(respBody: PaymentPlanResponseBody): PricingPlan {
@@ -56,37 +56,37 @@ export class PaymentServiceRender extends HiveVaultRender {
                 .setName(respBody.getName());
     }
 
-    public createPricingOrder(planName: string): string {
+    public createPricingOrder(planName: string): Promise<string> {
         return this.createOrder(planName, null);
     }
 
-    public createBackupOrder(String planName): string {
+    public createBackupOrder(planName: string): Promise<string> {
         return this.createOrder(null, planName);
     }
 
-    private createOrder(pricingPlanName: string, backupPlanName: string): string {
+    private async createOrder(pricingPlanName: string, backupPlanName: string): Promise<string> {
         return HiveResponseBody.validateBody(
-                this.getConnectionManager().getPaymentApi()
+                await this.getConnectionManager().getPaymentApi()
                         .createOrder(new PaymentCreateRequestBody(pricingPlanName, backupPlanName))
-                        .execute()
-                        .body()).getOrderId();
+                        /* .execute()
+                        .body() */).getOrderId();
     }
 
-    public payOrder(orderId: string, transIds: string[]) {
+    public async payOrder(orderId: string, transIds: string[]) {
         HiveResponseBody.validateBody(
-                this.getConnectionManager().getPaymentApi()
+                await this.getConnectionManager().getPaymentApi()
                         .payOrder(new PayOrderRequestBody()
                                 .setOrderId(orderId)
                                 .setPayTxids(transIds))
-                        .execute()
-                        .body());
+                        /* .execute()
+                        .body() */);
     }
 
     public async getOrderInfo(orderId: string): Promise<Order> {
         return HiveResponseBody.validateBody(
-                this.getConnectionManager().getPaymentApi()
+                await this.getConnectionManager().getPaymentApi()
                         .getOrderInfo(orderId)
-                        .execute()
-                        .body()).getOrderInfo();
+                        /* .execute()
+                        .body() */).getOrderInfo();
     }
 }

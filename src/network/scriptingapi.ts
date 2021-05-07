@@ -5,7 +5,7 @@ import { RegisterScriptRequestBody } from "./request/registerscriptrequestbody";
 import { RegisterScriptResponseBody } from "./response/registerscriptresponsebody";
 
 export class ScriptingApi {
-	private static API_SCRIPT_UPLOAD = "/scripting/run_script_upload";
+	public static API_SCRIPT_UPLOAD = "/scripting/run_script_upload";
 
 	@Post(BaseApi.API_VERSION + "/scripting/set_script")
 	registerScript(/* @Body  */body: RegisterScriptRequestBody): Promise<RegisterScriptResponseBody> { return null; }

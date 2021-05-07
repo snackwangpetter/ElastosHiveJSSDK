@@ -1,6 +1,5 @@
 import { AppContext } from "./appcontext";
-import { UnsupportedOperationException } from "./exception/illegalargumentexception";
-import { CompletionException } from "./exception/unsupportedoperationexception";
+import { UnsupportedOperationException } from "./exception/unsupportedoperationexception";
 import { VaultInfoResponseBody } from "./network/response/vaultinforesponsebody";
 import { Order } from "./payment/order";
 import { PricingPlan } from "./payment/pricingplan";
@@ -25,7 +24,7 @@ export class BackupSubscription extends ServiceEndpoint implements SubscriptionS
 	public subscribe(pricingPlan: string): Promise<BackupSubscription.BackupInfo> {
 		return this.promiseWithConvertedException<BackupSubscription.BackupInfo>(async ()=>{
 			await this.subscriptionService.subscribeBackup();
-			return this.getBackupInfoByResponseBody(this.subscriptionService.getBackupVaultInfo());
+			return this.getBackupInfoByResponseBody(await this.subscriptionService.getBackupVaultInfo());
 		});
 	}
 
@@ -55,7 +54,7 @@ export class BackupSubscription extends ServiceEndpoint implements SubscriptionS
 
 	public checkSubscription(): Promise<BackupSubscription.BackupInfo> {
 		return this.promiseWithConvertedException<BackupSubscription.BackupInfo>(async ()=>{
-			return this.getBackupInfoByResponseBody(this.subscriptionService.getBackupVaultInfo());
+			return this.getBackupInfoByResponseBody(await this.subscriptionService.getBackupVaultInfo());
 		});
 	}
 
@@ -72,8 +71,8 @@ export class BackupSubscription extends ServiceEndpoint implements SubscriptionS
 	}
 
 	public placeOrder(planName: string): Promise<Order> {
-		return this.promiseWithConvertedException<Order>(()=>{
-			return this.paymentService.getOrderInfo(this.paymentService.createBackupOrder(planName));
+		return this.promiseWithConvertedException<Order>(async ()=>{
+			return this.paymentService.getOrderInfo(await this.paymentService.createBackupOrder(planName));
 		});
 	}
 

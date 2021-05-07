@@ -1,5 +1,6 @@
 import { AppContext } from "./appcontext";
-import { CompletionException, UnsupportedOperationException } from "./exception/illegalargumentexception";
+import { CompletionException } from "./exception/completionexception";
+import { UnsupportedOperationException } from "./exception/unsupportedoperationexception";
 import { Order } from "./payment/order";
 import { PricingPlan } from "./payment/pricingplan";
 import { Receipt } from "./payment/receipt";
@@ -52,7 +53,7 @@ export class VaultSubscription extends ServiceEndpoint implements SubscriptionSe
 
 	public checkSubscription(): Promise<VaultSubscription.VaultInfo> {
 		return this.promiseWithConvertedException<VaultSubscription.VaultInfo>(async ()=>{
-			let body = this.subscriptionService.getVaultInfo();
+			let body = await this.subscriptionService.getVaultInfo();
 			return new VaultSubscription.VaultInfo(this.getUserDid(), null, body.getDid())
 					.setProvider(this.getProviderAddress())
 					.setCreateTime(body.getStartTimeStr())
@@ -78,7 +79,7 @@ export class VaultSubscription extends ServiceEndpoint implements SubscriptionSe
 
 	public placeOrder(planName: string): Promise<Order> {
 		return this.promiseWithConvertedException<Order>(async ()=>{
-			return this.paymentService.getOrderInfo(this.paymentService.createPricingOrder(planName));
+			return this.paymentService.getOrderInfo(await this.paymentService.createPricingOrder(planName));
 		});
 	}
 

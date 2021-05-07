@@ -2,7 +2,7 @@ import { AppContext } from "../appcontext";
 import { ServiceEndpoint } from "../serviceendpoint";
 import { ConnectionManager } from "../connection/connectionmanager";
 import { HttpExceptionHandler } from "./httpexceptionhandler";
-import { CompletionException } from "../exception/unsupportedoperationexception";
+import { CompletionException } from "../exception/completionexception";
 
 export abstract class HiveVaultRender extends HttpExceptionHandler {
     private context: AppContext;

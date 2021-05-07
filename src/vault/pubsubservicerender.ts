@@ -1,6 +1,6 @@
 import { ChannelMessage } from "../network/model/channelmessage";
 import { PubSubService } from "../service/pubsubservice";
-import { Vault } from "../vault ";
+import { Vault } from "../vault";
 import { HiveVaultRender } from "./hivevaultrender";
 import { HttpExceptionHandler } from "./httpexceptionhandler";
 

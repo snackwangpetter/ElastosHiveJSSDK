@@ -3,7 +3,7 @@ import { DatabaseService } from "../service/databaseservice";
 import { FilesService } from "../service/filesservice";
 import { PubSubService } from "../service/pubsubservice";
 import { ScriptingService } from "../service/scriptingservice";
-import { Vault } from "../vault ";
+import { Vault } from "../vault";
 import { BackupServiceRender } from "./backupservicerender";
 import { DatabaseServiceRender } from "./databaseservicerender";
 import { FilesServiceRender } from "./filesservicerender";

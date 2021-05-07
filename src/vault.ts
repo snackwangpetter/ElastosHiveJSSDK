@@ -8,7 +8,7 @@ import { ScriptingService } from "./service/scriptingservice";
 import { ServiceEndpoint } from "./serviceendpoint";
 import { HttpExceptionHandler } from "./vault/httpexceptionhandler";
 import { NodeManageServiceRender } from "./vault/nodemanageservicerender";
-import { CompletionException } from "./exception/unsupportedoperationexception";
+import { CompletionException } from "./exception/completionexception";
 
 /**
  * This class explicitly represents the vault service subscribed by "userDid".

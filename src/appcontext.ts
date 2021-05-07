@@ -82,18 +82,18 @@ export class AppContext {
 				doc = did.resolve();
 				if (doc == null)
 					throw new ProviderNotFoundException(
-							String.format("The DID %s has not published onto sideChain", targetDid));
+						"DID "+targetDid+" is not published on the ID side chain");
 
 				services = doc.selectServices(null, "HiveVault");
-				if (services == null || services.size() == 0)
+				if (services == null || services.length == 0)
 					throw new ProviderNotSetException(
-							String.format("No 'HiveVault' services declared on DID document %s", targetDid));
+						"No 'HiveVault' services declared on DID document "+targetDid);
 
 				/*
 				 * TODO: should we throw special exception when it has more than one end-point
 				 * of service "HiveVault";
 				 */
-				return services.get(0).getServiceEndpoint();
+				return services[0].getServiceEndpoint();
 			} catch (e) {
 				if (e instanceof MalformedDIDException)
 					throw new IllegalDidFormatException("Bad target did: " + targetDid);

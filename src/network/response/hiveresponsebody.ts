@@ -2,6 +2,8 @@ import dayjs from "dayjs";
 import { HiveException } from "../../exception/hiveexception";
 import { HiveSdkException } from "../../exception/hivesdkexception";
 import { HttpFailedException } from "../../exception/httpfailedexception";
+import { JSONObject } from "../../json";
+import { KeyValueDict } from "../model/keyvaluedict";
 
 export class HiveResponseBody {
     private static SUCCESS = "OK";
@@ -124,25 +126,25 @@ export class HiveResponseBody {
 
     public static JsonNode map2JsonNode(Map<String, Object> map) {
         return new ObjectMapper().convertValue(map, JsonNode.class);
+    }*/
+
+    public static jsonNode2KeyValueDic(node: JSONObject): KeyValueDict {
+        // Java: return new ObjectMapper().convertValue(node, new TypeReference<KeyValueDict>() {});
     }
 
-    public static KeyValueDict jsonNode2KeyValueDic(JsonNode node) {
-        return new ObjectMapper().convertValue(node, new TypeReference<KeyValueDict>() {});
+    public static jsonNodeList2KeyValueDicList(docs: JSONObject[]): KeyValueDict[] {
+        // Java: return docs.stream().map(HiveResponseBody::jsonNode2KeyValueDic).collect(Collectors.toList());
     }
 
-    public static List<KeyValueDict> jsonNodeList2KeyValueDicList(List<JsonNode> docs) {
-        return docs.stream().map(HiveResponseBody::jsonNode2KeyValueDic).collect(Collectors.toList());
+    public static KeyValueDict2JsonNode(dict: KeyValueDict): JSONObject {
+        // Java: return new ObjectMapper().convertValue(dict, JsonNode.class);
     }
 
-    public static JsonNode KeyValueDict2JsonNode(KeyValueDict dict) {
-        return new ObjectMapper().convertValue(dict, JsonNode.class);
+    public static KeyValueDictList2JsonNodeList(dicts: KeyValueDict[]): JSONObject[] {
+        // Java: return dicts.stream().map(HiveResponseBody::KeyValueDict2JsonNode).collect(Collectors.toList());
     }
 
-    public static List<JsonNode> KeyValueDictList2JsonNodeList(List<KeyValueDict> dicts) {
-        return dicts.stream().map(HiveResponseBody::KeyValueDict2JsonNode).collect(Collectors.toList());
-    }
-
-    public static Map<Integer, String> getHttpErrorMessages() {
+    /*public static Map<Integer, String> getHttpErrorMessages() {
         if (errorMessages == null) {
             Map<Integer, String> messages = new HashMap<>();
             messages.put(400, "bad request");

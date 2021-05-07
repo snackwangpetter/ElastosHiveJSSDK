@@ -1,8 +1,7 @@
 import { BackupRemoteResolver } from "../auth/backupremoteresolver";
 import { LocalResolver } from "../auth/localresolver";
 import { TokenResolver } from "../auth/tokenresolver";
-import { UnsupportedOperationException } from "../exception/illegalargumentexception";
-import { CompletionException } from "../exception/unsupportedoperationexception";
+import { UnsupportedOperationException } from "../exception/unsupportedoperationexception";
 import { BackupRestoreRequestBody } from "../network/request/backuprestorerequestbody";
 import { BackupSaveRequestBody } from "../network/request/backupsaverequestbody";
 import { HiveResponseBody } from "../network/response/hiveresponsebody";

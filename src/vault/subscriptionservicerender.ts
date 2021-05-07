@@ -13,65 +13,65 @@ export class SubscriptionServiceRender extends HiveVaultRender {
         super(serviceEndpoint);
     }
 
-    public subscribe() {
+    public async subscribe() {
         let body = HiveResponseBody.validateBody(
-            this.getConnectionManager().getSubscriptionApi()
+            await this.getConnectionManager().getSubscriptionApi()
                         .createVault()
-                        .execute()
-                        .body());
-        if (Boolean.TRUE.equals(body.getExisting())) {
+                        /* .execute()
+                        .body() */);
+        if (body.getExisting()) {
             throw new VaultAlreadyExistsException("The vault already exists");
         }
     }
 
-    public subscribeBackup() {
+    public async subscribeBackup() {
         let body = HiveResponseBody.validateBody(
-            this.getConnectionManager().getSubscriptionApi()
+            await this.getConnectionManager().getSubscriptionApi()
                         .createBackupVault()
-                        .execute()
-                        .body());
-        if (Boolean.TRUE.equals(body.getExisting())) {
+                        /* .execute()
+                        .body() */);
+        if (body.getExisting()) {
             throw new VaultAlreadyExistsException("The backup vault already exists");
         }
     }
 
-    public unsubscribe() {
+    public async unsubscribe() {
         HiveResponseBody.validateBody(
-            this.getConnectionManager().getSubscriptionApi()
+            await this.getConnectionManager().getSubscriptionApi()
                         .removeVault()
-                        .execute()
-                        .body());
+                        /* .execute()
+                        .body() */);
     }
 
-    public activate() {
+    public async activate() {
         HiveResponseBody.validateBody(
-            this.getConnectionManager().getSubscriptionApi()
+            await this.getConnectionManager().getSubscriptionApi()
                         .unfreeze()
-                        .execute()
-                        .body());
+                        /* .execute()
+                        .body() */);
     }
 
-    public deactivate() {
+    public async deactivate() {
         HiveResponseBody.validateBody(
-            this.getConnectionManager().getSubscriptionApi()
+            await this.getConnectionManager().getSubscriptionApi()
                         .freeze()
-                        .execute()
-                        .body());
+                        /* .execute()
+                        .body() */);
     }
 
-    public  getVaultInfo(): VaultInfoResponseBody {
+    public async getVaultInfo(): Promise<VaultInfoResponseBody> {
         return HiveResponseBody.validateBody(
-            this.getConnectionManager().getSubscriptionApi()
+            await this.getConnectionManager().getSubscriptionApi()
                         .getVaultInfo()
-                        .execute()
-                        .body());
+                        /* .execute()
+                        .body() */);
     }
 
-    public getBackupVaultInfo(): VaultInfoResponseBody {
+    public async getBackupVaultInfo(): Promise<VaultInfoResponseBody> {
         return HiveResponseBody.validateBody(
-            this.getConnectionManager().getSubscriptionApi()
+            await this.getConnectionManager().getSubscriptionApi()
                     .getBackupVaultInfo()
-                    .execute()
-                    .body());
+                    /* .execute()
+                    .body() */);
     }
 }
