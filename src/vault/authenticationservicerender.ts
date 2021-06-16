@@ -2,10 +2,12 @@ import exp from "node:constants";
 import { AppContextProvider } from "../appcontextprovider";
 import { AuthToken } from "../auth/authtoken";
 import { AuthRequestBody } from "../network/request/authrequestbody";
+import { SignInRequestBody } from "../network/request/signinrequestbody";
 import { HiveResponseBody } from "../network/response/hiveresponsebody";
 import { ServiceEndpoint } from "../serviceendpoint";
 import { JwtUtil } from "../utils/jwtutil";
 import { HiveVaultRender } from "./hivevaultrender";
+import { ObjectMapper }  from "@elastosfoundation/jackson-js"
 
 export class AuthenticationServiceRender extends HiveVaultRender /* TODO JAVA implements HttpExceptionHandler */ {
 
@@ -14,6 +16,19 @@ export class AuthenticationServiceRender extends HiveVaultRender /* TODO JAVA im
     public constructor(serviceEndpoint: ServiceEndpoint) {
         super(serviceEndpoint);
         this.contextProvider = serviceEndpoint.getAppContext().getAppContextProvider();
+    }
+
+    public signIn4Token() {
+        let rspBody = HiveResponseBody.validateBody(
+                this.getConnectionManager().getAuthApi()
+                        .signIn(new SignInRequestBody(new ObjectMapper().
+                                .readValue(
+                                        this.contextProvider.getAppInstanceDocument().toString(),
+                                        Map)))
+                        .execute()
+                        .body());
+        rspBody.checkValid(this.contextProvider.getAppInstanceDocument().getSubject().toString());
+        return this.contextProvider.getAuthorization(rspBody.getChallenge()).get();
     }
 
     /* public String signIn4Token() throws IOException, ExecutionException, InterruptedException {

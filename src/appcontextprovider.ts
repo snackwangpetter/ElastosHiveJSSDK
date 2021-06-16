@@ -1,3 +1,5 @@
+
+import { DIDDocument } from "@elastosfoundation/did-js-sdk";
 /**
  *
  */

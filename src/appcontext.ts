@@ -1,5 +1,7 @@
+import { DID, DIDDocument, DIDBackend, DIDDocumentService } from "@elastosfoundation/did-js-sdk";
 import { AppContextProvider } from "./appcontextprovider";
 import { 
+	Exception,
 	BadContextProviderException, 
 	IllegalArgumentException, 
 	DIDResolverNotSetupException, 
@@ -41,7 +43,7 @@ export class AppContext {
 			resolverHasSetup = true;
 		} catch (e) {
 			// DIDResolveException
-			throw new DIDResolverSetupException(e);
+			throw new DIDResolverSetupException(e.toString(), e as Exception);
 		}
 	}
 
@@ -79,7 +81,7 @@ export class AppContext {
 				return preferredProviderAddress;
 
 			try {
-				let services: DIDDocument.Service[] = null;
+				let services: DIDDocumentService[] = null;
 				let did = new DID(targetDid);
 				let doc: DIDDocument;
 
