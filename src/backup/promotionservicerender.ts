@@ -1,4 +1,4 @@
-import { CompletionException } from "../exception/unsupportedoperationexception";
+import { Exception, CompletionException } from "../exception/exception";
 import { EmptyRequestBody } from "../network/request/emptyrequestbody";
 import { HiveResponseBody } from "../network/response/hiveresponsebody";
 import { PromotionService } from "../service/promotionservice";
@@ -20,7 +20,7 @@ export class PromotionServiceRender extends HiveVaultRender implements Promotion
 								.body());
 				resolve();
 			} catch (e) {
-				reject(new CompletionException(this.convertException(e)));
+				reject(new CompletionException(this.convertException(e as Exception)));
 			}
 		});
 	}

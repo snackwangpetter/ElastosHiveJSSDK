@@ -1,5 +1,5 @@
 import path from "node:path";
-import { HiveSdkException } from "../exception/hivesdkexception";
+import { HiveSdkException } from "../exception/exception";
 import { CryptoUtil } from "../utils/cryptoutil";
 import { LogUtil } from "../utils/logutil";
 import { AuthToken } from "./authtoken";
@@ -76,7 +76,7 @@ export class LocalResolver implements TokenResolver {
 			Files.write(path, new Gson().toJson(token).getBytes(StandardCharsets.UTF_8));
 		} catch (e) {
 			LogUtil.e(null, "Failed to save access token to local cache");
-			e.printStackTrace();
+			
 		}
 	}
 
@@ -84,7 +84,7 @@ export class LocalResolver implements TokenResolver {
 		try {
 			Files.deleteIfExists(Paths.get(tokenPath));
 		} catch (e) {
-			e.printStackTrace();
+			
 		}
 	}
 }

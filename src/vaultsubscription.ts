@@ -1,6 +1,5 @@
 import { AppContext } from "./appcontext";
-import { CompletionException } from "./exception/completionexception";
-import { UnsupportedOperationException } from "./exception/unsupportedoperationexception";
+import { Exception, CompletionException, UnsupportedOperationException } from "./exception/exception";
 import { Order } from "./payment/order";
 import { PricingPlan } from "./payment/pricingplan";
 import { Receipt } from "./payment/receipt";
@@ -28,7 +27,7 @@ export class VaultSubscription extends ServiceEndpoint implements SubscriptionSe
 				//TODO:
 				resolve(new VaultSubscription.VaultInfo(null, this.getAppContext().getUserDid(), null));
 			} catch (e) {
-				reject(new CompletionException(this.convertException(e)));
+				reject(new CompletionException(this.convertException(e as Exception)));
 			}
 		});
 	}

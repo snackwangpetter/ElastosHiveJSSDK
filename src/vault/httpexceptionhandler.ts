@@ -11,7 +11,7 @@ export abstract class HttpExceptionHandler {
      * @param e exception from http calling.
      * @return expect exception already defined.
      */
-    convertException(e: Exception) {
+    convertException(e: Exception): Exception {
         return HiveResponseBody.convertException(e);
     }
 }

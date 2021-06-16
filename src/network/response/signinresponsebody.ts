@@ -1,4 +1,4 @@
-import { HiveSdkException } from "../../exception/hivesdkexception";
+import { HiveSdkException } from "../../exception/exception";
 import { JwtUtil } from "../../utils/jwtutil";
 import { HiveResponseBody } from "./hiveresponsebody";
 

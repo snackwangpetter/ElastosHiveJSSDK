@@ -40,7 +40,7 @@ public class ResponseHelper {
             ResponseBody body = (ResponseBody) response.body();
             data = body != null ? body.bytes() : new byte[0];
         } catch (IOException e) {
-            e.printStackTrace();
+            
         }
         return data;
     }
@@ -57,7 +57,7 @@ public class ResponseHelper {
                 }
             }
         } catch (Exception e) {
-            e.printStackTrace();
+            
         }
 
         return rets;
@@ -98,7 +98,7 @@ public class ResponseHelper {
                 obj = new ObjectMapper().readValue(json, clz);
             }
         } catch (Exception e) {
-            e.printStackTrace();
+            
         }
         return (T) obj;
     }

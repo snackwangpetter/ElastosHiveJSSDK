@@ -1,11 +1,15 @@
 import { AppContextProvider } from "./appcontextprovider";
-import { BadContextProviderException } from "./exception/badcontextproviderexception";
-import { IllegalArgumentException } from "./exception/completionexception";
-import { DIDResolverNotSetupException } from "./exception/didresolvernotsetupexception";
-import { DIDResolverSetupException } from "./exception/didresolversetupexception";
-import { IllegalDidFormatException } from "./exception/illegaldidformatexception";
-import { ProviderNotFoundException } from "./exception/providernotfoundexception";
-import { ProviderNotSetException } from "./exception/providernotsetexception";
+import { 
+	BadContextProviderException, 
+	IllegalArgumentException, 
+	DIDResolverNotSetupException, 
+	DIDResolverSetupException, 
+	DIDResoverAlreadySetupException, 
+	IllegalDidFormatException, 
+	ProviderNotFoundException, 
+	ProviderNotSetException ,
+	MalformedDIDException
+} from "./exception/exception";
 
 /**
  * The application context would contain the resources list below:
@@ -37,7 +41,7 @@ export class AppContext {
 			resolverHasSetup = true;
 		} catch (e) {
 			// DIDResolveException
-			throw new DIDResolverSetupException(e.getMessage());
+			throw new DIDResolverSetupException(e);
 		}
 	}
 

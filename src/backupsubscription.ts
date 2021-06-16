@@ -1,5 +1,5 @@
 import { AppContext } from "./appcontext";
-import { UnsupportedOperationException } from "./exception/unsupportedoperationexception";
+import { UnsupportedOperationException } from "./exception/exception";
 import { VaultInfoResponseBody } from "./network/response/vaultinforesponsebody";
 import { Order } from "./payment/order";
 import { PricingPlan } from "./payment/pricingplan";
@@ -7,7 +7,6 @@ import { Receipt } from "./payment/receipt";
 import { PaymentService } from "./service/paymentservice";
 import { SubscriptionService } from "./service/subscriptionservice";
 import { ServiceEndpoint } from "./serviceendpoint";
-import { HttpExceptionHandler } from "./vault/httpexceptionhandler";
 import { PaymentServiceRender } from "./vault/paymentservicerender";
 import { SubscriptionServiceRender } from "./vault/subscriptionservicerender";
 

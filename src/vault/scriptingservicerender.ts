@@ -1,5 +1,5 @@
 import { Class } from "../class";
-import { InvalidParameterException } from "../exception/invalidparameterexception";
+import { InvalidParameterException } from "../exception/exception";
 import { JSONObject } from "../json";
 import { Condition } from "../network/model/condition";
 import { Executable } from "../network/model/executable";

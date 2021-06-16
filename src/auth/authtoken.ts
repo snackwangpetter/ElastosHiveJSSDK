@@ -1,3 +1,4 @@
+import { Exception } from "../exception/exception"
 import { LogUtil } from "../utils/logutil";
 
 export class AuthToken {
@@ -41,7 +42,7 @@ export class AuthToken {
 		try {
 			return VerifiableCredential.fromJson(this.accessToken).isExpired();
 		} catch (e) {
-			LogUtil.e(null, "Failed to check backup credential with message:" + e.getMessage());
+			LogUtil.e(null, "Failed to check backup credential with message:" + e);
 			return true;
 		}
 	}

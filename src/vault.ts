@@ -8,7 +8,7 @@ import { ScriptingService } from "./service/scriptingservice";
 import { ServiceEndpoint } from "./serviceendpoint";
 import { HttpExceptionHandler } from "./vault/httpexceptionhandler";
 import { NodeManageServiceRender } from "./vault/nodemanageservicerender";
-import { CompletionException } from "./exception/completionexception";
+import { Exception, CompletionException } from "./exception/exception";
 
 /**
  * This class explicitly represents the vault service subscribed by "userDid".
@@ -57,7 +57,7 @@ export class Vault extends ServiceEndpoint implements HttpExceptionHandler {
 			try {
 				resolve(this.nodeManageService.getVersion());
 			} catch (e) {
-				reject(new CompletionException(this.convertException(e)));
+				reject(new CompletionException(this.convertException(e as Exception)));
 			}
 		});
 	}
@@ -67,7 +67,7 @@ export class Vault extends ServiceEndpoint implements HttpExceptionHandler {
 			try {
 				resolve(this.nodeManageService.getCommitHash());
 			} catch (e) {
-				reject(new CompletionException(this.convertException(e)));
+				reject(new CompletionException(this.convertException(e as Exception)));
 			}
 		});
 	}

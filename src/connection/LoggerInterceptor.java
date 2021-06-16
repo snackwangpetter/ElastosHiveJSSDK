@@ -88,7 +88,7 @@ public class LoggerInterceptor implements Interceptor {
                 try {
                     charset = contentType.charset(charset);
                 } catch (UnsupportedCharsetException e) {
-                    e.printStackTrace();
+                    
                 }
             }
             if (charset != null) {
@@ -108,7 +108,7 @@ public class LoggerInterceptor implements Interceptor {
                         .message(response.message())
                         .body(ResponseBody.create(null, "")).build();
             } catch (Exception e) {
-                e.printStackTrace();
+                
             }
         }
         return response;

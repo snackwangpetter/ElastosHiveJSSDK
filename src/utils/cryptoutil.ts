@@ -7,9 +7,9 @@ export class CryptoUtil {
             messageDigest.update(str.getBytes("UTF-8"));
             encodestr = byte2Hex(messageDigest.digest());
         } catch (NoSuchAlgorithmException e) {
-            e.printStackTrace();
+            
         } catch (UnsupportedEncodingException e) {
-            e.printStackTrace();
+            
         }
         return encodestr; */
     }

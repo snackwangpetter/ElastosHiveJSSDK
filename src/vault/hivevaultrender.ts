@@ -2,7 +2,7 @@ import { AppContext } from "../appcontext";
 import { ServiceEndpoint } from "../serviceendpoint";
 import { ConnectionManager } from "../connection/connectionmanager";
 import { HttpExceptionHandler } from "./httpexceptionhandler";
-import { CompletionException } from "../exception/completionexception";
+import { Exception, CompletionException } from "../exception/exception";
 
 export abstract class HiveVaultRender extends HttpExceptionHandler {
     private context: AppContext;
@@ -37,7 +37,7 @@ export abstract class HiveVaultRender extends HttpExceptionHandler {
                     resolve(result);
             }
             catch (e) {
-				throw new CompletionException(this.convertException(e));
+				throw new CompletionException(this.convertException(e as Exception));
 			}
         });
     }

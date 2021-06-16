@@ -1,7 +1,6 @@
 import dayjs from "dayjs";
-import { HiveException } from "../../exception/hiveexception";
-import { HiveSdkException } from "../../exception/hivesdkexception";
-import { HttpFailedException } from "../../exception/httpfailedexception";
+import { HttpErrors } from "../httperrors";
+import { Exception, HiveException, HiveSdkException, HttpFailedException, IOException } from "../../exception/exception";
 import { JSONObject } from "../../json";
 import { KeyValueDict } from "../model/keyvaluedict";
 
@@ -53,7 +52,7 @@ export class HiveResponseBody {
             throw new HiveSdkException("Failed to get response body(null)");
 
         if (body.failed())
-            throw new HttpFailedException(600, this.getHttpErrorMessages().get(600));
+            throw new HttpFailedException(600, HttpErrors.get(600));
 
         return body;
     }
@@ -144,50 +143,15 @@ export class HiveResponseBody {
         // Java: return dicts.stream().map(HiveResponseBody::KeyValueDict2JsonNode).collect(Collectors.toList());
     }
 
-    /*public static Map<Integer, String> getHttpErrorMessages() {
-        if (errorMessages == null) {
-            Map<Integer, String> messages = new HashMap<>();
-            messages.put(400, "bad request");
-            messages.put(401, "auth failed");
-            messages.put(402, "payment required");
-            messages.put(403, "forbidden");
-            messages.put(404, "not found");
-            messages.put(405, "method not allowed");
-            messages.put(406, "not acceptable");
-            messages.put(423, "locked");
-            messages.put(452, "checksum failed or not enough space");
-            messages.put(500, "internal server error");
-            messages.put(501, "not implemented");
-            messages.put(503, "service unavailable");
-            messages.put(507, "insufficient storage");
-            messages.put(600, "error body status");
-            errorMessages = messages;
-        }
-        return errorMessages;
-    }*/
-
     public static convertException(e: Exception): Exception {
         if (e instanceof HttpFailedException) {
             let ex = e as HttpFailedException;
-            return this.getHttpExceptionByCode(ex.getCode(), ex.getMessage());
+            return HttpErrors.getHttpExceptionByCode(ex.getCode(), ex.getMessage());
         } else if (e instanceof IOException)
             return new HiveException(e.getMessage());
         else
             return e;
     }
-/*
-    public static IOException getHttpExceptionByCode(int code, String message) {
-        switch (code) {
-            case 401:
-                return new AuthenticationException();
-            case 423:
-                return new VaultLockedException();
-            case 452:
-                return new NoEnoughSpaceException();
-            default:
-                return new HttpFailedException(code, message);
-        }
-    }*/
 
     protected getDateStrByStamp(value: number): string {
         return dayjs(value).format(HiveResponseBody.FORMAT_DT);

@@ -1,8 +1,6 @@
 import { AppContextProvider } from "../appcontextprovider";
-import { HttpFailedException } from "../exception/httpfailedexception";
-import { UnsupportedOperationException } from "../exception/illegalargumentexception";
+import { HttpFailedException, UnsupportedOperationException } from "../exception/exception";
 import { ServiceEndpoint } from "../serviceendpoint";
-import { LogUtil } from "../utils/logutil";
 import { AuthenticationServiceRender } from "../vault/authenticationservicerender";
 import { AuthToken } from "./authtoken";
 import { TokenResolver } from "./tokenresolver";

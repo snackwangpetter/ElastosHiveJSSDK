@@ -1,5 +1,5 @@
 import { throws } from "node:assert";
-import { VaultAlreadyExistsException } from "../exception/vaultalreadyexistsexception";
+import { VaultAlreadyExistsException } from "../exception/exception";
 import { HiveResponseBody } from "../network/response/hiveresponsebody";
 import { VaultInfoResponseBody } from "../network/response/vaultinforesponsebody";
 import { ServiceEndpoint } from "../serviceendpoint";

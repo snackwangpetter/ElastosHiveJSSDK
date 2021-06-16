@@ -1,4 +1,4 @@
-import { HiveSdkException } from "../../exception/hivesdkexception";
+import { HiveSdkException } from "../../exception/exception";
 import { JSONObject } from "../../json";
 import { Condition } from "./condition";
 import { ScriptDeleteExecutableBody } from "./scriptdeleteexecutablebody";

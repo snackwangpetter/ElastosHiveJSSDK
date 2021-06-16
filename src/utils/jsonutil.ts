@@ -6,7 +6,7 @@ export class JsonUtil {
 			ObjectMapper mapper = new ObjectMapper();
 			return mapper.writeValueAsString(object);
 		} catch (JsonProcessingException e) {
-			e.printStackTrace();
+			
 			return null;
 		}
 	}
@@ -16,7 +16,7 @@ export class JsonUtil {
 			ObjectMapper mapper = new ObjectMapper();
 			return mapper.readTree(json);
 		} catch (Exception e) {
-			e.printStackTrace();
+			
 			return null;
 		}
 	}

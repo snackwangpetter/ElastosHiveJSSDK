@@ -1,4 +1,4 @@
-import { HiveException } from "../../exception/hiveexception";
+import { HiveException } from "../../exception/exception";
 import { BackupService } from "../../service/backupservice";
 import { HiveResponseBody } from "./hiveresponsebody";
 

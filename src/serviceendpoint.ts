@@ -1,6 +1,6 @@
 import { AppContext } from "./appcontext";
 import { ConnectionManager } from "./connection/connectionmanager";
-import { CompletionException } from "./exception/completionexception";
+import { Exception, CompletionException } from "./exception/exception";
 import { HttpExceptionHandler } from "./vault/httpexceptionhandler";
 
 export class ServiceEndpoint extends HttpExceptionHandler {
@@ -54,7 +54,7 @@ export class ServiceEndpoint extends HttpExceptionHandler {
                 resolve(await runnable());
             }
             catch (e) {
-				throw new CompletionException(this.convertException(e));
+				throw new CompletionException(this.convertException(e as Exception));
 			}
         });
     }
