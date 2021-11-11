@@ -7,6 +7,7 @@
 *.tmp
 *.tmp.*
 *.html
+*.code-workspace
 log.txt
 *.sublime-project
 *.sublime-workspace

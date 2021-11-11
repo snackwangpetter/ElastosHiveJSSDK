@@ -7,7 +7,7 @@ describe("test subscribe function", () => {
     let testData: TestData;
     let vaultsubscriptionService: VaultSubscriptionService;
     let backupsubscriptionService: BackupSubscriptionService;
-    let PRICING_PLAN_NAME: string = "Rookie";
+    let PRICING_PLAN_NAME = "Rookie";
 
     beforeEach(async () => {
         testData = await TestData.getInstance("subscribe.test", ClientConfig.CUSTOM, TestData.USER_DIR);

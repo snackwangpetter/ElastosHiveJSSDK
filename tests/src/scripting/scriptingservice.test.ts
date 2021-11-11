@@ -8,7 +8,7 @@ describe("test scripting function", () => {
     let testData: TestData;
     let vaultSubscriptionService: VaultSubscriptionService;
     let vaultServices: VaultServices;
-    let PRICING_PLAN_NAME: string = "Rookie";
+    let PRICING_PLAN_NAME = "Rookie";
 
     //private static log = LoggerFactory.getLogger(ScriptingServiceTest.class);
     const FIND_NAME = "get_group_messages";
